@@ -1,11 +1,7 @@
 import React from 'react';
 import lodash from 'lodash';
 
-import Ace from 'react-ace';
-import "brace/mode/json";
-import 'brace/theme/github';
-
-import SpaceInvaders from './SpaceInvaders';
+import SpaceInvaders from './JSON/SpaceInvaders';
 import Header from './Header';
 import Menu from './Menu';
 import Content from './Content';
@@ -14,7 +10,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		
+
 		this.state = {
 			menuOpen: false
 		}
@@ -22,7 +18,7 @@ class App extends React.Component {
 		this.debounceChange = lodash.debounce(this.handleChange, 200);
 	}
 
-	handleChange(value) {	
+	handleChange(value) {
 		console.log(value);
 	}
 
@@ -37,11 +33,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="app">
-				
+
 				<Header menuClick={() => this.openMenu()}/>
 				<Menu menuOpen={this.state.menuOpen} closeMenu={() => this.closeMenu()}/>
 				<Content/>
-				
+
 			</div>
 		);
 	}

@@ -48,7 +48,7 @@ const styles = theme => ({
 
 function Menu(props) {
 	const {classes} = props;
-	
+
 	const items = [
 		{
 			title: 'XML',
@@ -67,9 +67,9 @@ function Menu(props) {
             className={classes.drawer}
             variant="temporary"
             classes={{paper: classes.drawerPaper}}
-			open={props.menuOpen}
+		    open={props.menuOpen}
 			onClose={() => props.closeMenu()}
-        >   
+        >
 			<div className={classes.menuHeader}>
 				<Typography variant="h5" style={{fontFamily: 'Ubuntu'}}>Desafios</Typography>
 			</div>

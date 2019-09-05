@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Starfield} from '../space-invaders/js/starfield.js';
-import {Game} from '../space-invaders/js/spaceinvaders.js';
+import {Starfield} from '../../space-invaders/js/starfield.js';
+import {Game} from '../../space-invaders/js/spaceinvaders.js';
 
 class SpaceInvaders extends Component {
     constructor(props) {
