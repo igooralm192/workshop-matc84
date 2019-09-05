@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/workshop-matc84/static/css/main.d9502924.chunk.css",
+    "main.js": "/workshop-matc84/static/js/main.1e98d5fb.chunk.js",
+    "main.js.map": "/workshop-matc84/static/js/main.1e98d5fb.chunk.js.map",
+    "runtime~main.js": "/workshop-matc84/static/js/runtime~main.d9b15bd5.js",
+    "runtime~main.js.map": "/workshop-matc84/static/js/runtime~main.d9b15bd5.js.map",
+    "static/js/2.86004060.chunk.js": "/workshop-matc84/static/js/2.86004060.chunk.js",
+    "static/js/2.86004060.chunk.js.map": "/workshop-matc84/static/js/2.86004060.chunk.js.map",
+    "index.html": "/workshop-matc84/index.html",
+    "precache-manifest.338fb94207b119e03653d1c8103e08f6.js": "/workshop-matc84/precache-manifest.338fb94207b119e03653d1c8103e08f6.js",
+    "service-worker.js": "/workshop-matc84/service-worker.js",
+    "static/css/main.d9502924.chunk.css.map": "/workshop-matc84/static/css/main.d9502924.chunk.css.map"
+  }
+}
