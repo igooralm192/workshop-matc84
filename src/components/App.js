@@ -1,45 +1,36 @@
-import React from 'react';
-import lodash from 'lodash';
+import React, { useState } from 'react';
 
-import SpaceInvaders from './JSON/SpaceInvaders';
+import { 
+	BrowserRouter as Router, 
+	Route, 
+	Switch 
+} from "react-router-dom";
+
 import Header from './Header';
 import Menu from './Menu';
 import Content from './Content';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
+import Introduction from './Introduction';
+import MainXML from './XML/Main';
+import MainJSON from './JSON/Main';
 
-
-		this.state = {
-			menuOpen: false
-		}
-
-		this.debounceChange = lodash.debounce(this.handleChange, 200);
-	}
-
-	handleChange(value) {
-		console.log(value);
-	}
-
-	openMenu() {
-		this.setState({menuOpen: true});
-	}
-
-	closeMenu() {
-		this.setState({menuOpen: false});
-	}
-
-	render() {
-		return (
+function App(props) {
+	const [menuOpen, setMenuOpen] = useState(false);
+	
+	return (
+		<Router>
 			<div className="app">
-
-				<Header menuClick={() => this.openMenu()}/>
-				<Menu menuOpen={this.state.menuOpen} closeMenu={() => this.closeMenu()}/>
-				<Content/>
-
+				<Header menuClick={() => setMenuOpen(true)}/>
+				<Menu menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)}/>
+				<Content>
+					<Switch>
+						<Route path="/" exact component={Introduction}/>
+						<Route path="/xml" component={MainXML}/>
+						<Route path="/json" component={MainJSON}/>
+					</Switch>
+				</Content>
 			</div>
-		);
-	}
+		</Router>
+	);
 }
 export default App;
