@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import { Link } from "react-router-dom";
-import { Drawer, Typography, ListItem, List, ListItemText } from '@material-ui/core';
+import { Drawer, Typography, ListItem, List, ListItemText, ListItemIcon, Collapse } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -54,23 +56,29 @@ const styles = () => ({
 	menuItemIconJSON: {
 		color: '#9f6bab',
 	},
+	menuItemNested: {
+		paddingLeft: '1em'
+	}
 });
 
 function Menu(props) {
 	const { classes } = props;
 
+	const [openXML, setOpenXML] = useState(false);
+	const [openJSON, setOpenJSON] = useState(false);
+
 	const items = [
 		{
 			title: 'XML',
-			url: '/xml',
 			icon: '</>',
-			style: classes.menuItemIconXML
+			style: classes.menuItemIconXML,
+			challenges: [{name: 'Three.JS', url: '/xml/threejs'}]
 		},
 		{
 			title: 'JSON',
-			url: '/json',
 			icon: '{ ; }',
-			style: classes.menuItemIconJSON
+			style: classes.menuItemIconJSON,
+			challenges: [{name: 'Space Invaders', url: '/json/spaceinvaders',}]
 		}
 	]
 
@@ -87,21 +95,47 @@ function Menu(props) {
 				<Typography variant="subtitle2" className={classes.menuHeaderSubtitle}>Workshop -  MATC84</Typography>
 				<div className={classes.menuHeaderDivider}></div>
 			</div>
+
+			
 			
             <List disablePadding>
 				{
-					items.map((item, i) => (
-						<Link key={i} to={item.url} className={classes.menuItemLink}>
-							<ListItem button onClick={() => props.closeMenu()}>
+					items.map((item, i) => [
+						//<Link key={i} to={item.url} className={classes.menuItemLink}>
+							<ListItem key={i} button onClick={() => i==0?setOpenXML(!openXML):setOpenJSON(!openJSON)}>
 								<ListItemText>
 									<Typography className={classes.menuItem}>
 										<span className={clsx(item.style, classes.menuItemIcon)}>{item.icon}</span>
 										<span>{item.title}</span>
 									</Typography>
+									
 								</ListItemText>
-							</ListItem>
-						</Link>
-					))
+								{
+									i == 0 ?
+									openXML ? <ExpandLess/> : <ExpandMore/> :
+									openJSON ? <ExpandLess/> : <ExpandMore/>
+								}
+							</ListItem>,
+							<Collapse in={i==0?openXML:openJSON} timeout="auto" unmountOnExit>
+								<List disablePadding>
+									{
+										item.challenges.map((challenge, j) => (
+											<Link key={i} to={challenge.url} className={classes.menuItemLink}>
+												<ListItem key={i} button onClick={() => props.closeMenu()}>
+													<ListItemText>
+														<Typography className={clsx(classes.menuItem, classes.menuItemNested)}>
+															{challenge.name}
+														</Typography>
+													</ListItemText>
+												</ListItem>
+											</Link>
+										))
+									}
+								</List>
+							</Collapse>
+							
+						//</Link>
+					])
 				}
 			</List>
         </Drawer>

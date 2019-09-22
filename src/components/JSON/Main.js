@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Challenge from '../Challenge';
+import Editor from '../Editor';
 
 const styles = theme => ({});
 
@@ -9,7 +10,12 @@ function Main(props) {
 	
     return (
         <div style={{height: '100%'}}>
-            <Challenge title={'Space Invaders'} subtitle={'Começando'}/>
+            <Challenge 
+                title={'Titulo do Desafio'} 
+                subtitle={'Titulo da etapa'} 
+                description={'Descrição da etapa'} 
+                editor={<Editor mode="json"/>}
+            />
         </div>
     )
 }

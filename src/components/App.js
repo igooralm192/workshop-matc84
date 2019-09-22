@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { 
 	BrowserRouter as Router, 
 	Route, 
-	Switch 
+	Switch,
+	Redirect 
 } from "react-router-dom";
 
 import Header from './Header';
@@ -13,6 +14,14 @@ import Content from './Content';
 import Introduction from './Introduction';
 import MainXML from './XML/Main';
 import MainJSON from './JSON/Main';
+
+const challengesXML = [
+	{path: '/xml/threejs', component: MainXML},
+]
+
+const challengesJSON = [
+	{path: '/json/spaceinvaders', component: MainJSON}
+]
 
 function App(props) {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -25,8 +34,18 @@ function App(props) {
 				<Content>
 					<Switch>
 						<Route path="/" exact component={Introduction}/>
-						<Route path="/xml" component={MainXML}/>
-						<Route path="/json" component={MainJSON}/>
+						
+						{
+							challengesXML.map((challenge,i) => (
+								<Route key={i} path={challenge.path} component={challenge.component}/>
+							))
+						}
+
+						{
+							challengesJSON.map((challenge,i) => (
+								<Route key={i} path={challenge.path} component={challenge.component}/>
+							))
+						}
 					</Switch>
 				</Content>
 			</div>
