@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -27,8 +28,8 @@ const styles = theme => ({
 });
 
 function Header(props) {
-	const {classes} = props;
-	
+	const { classes } = props;
+
     return (
         <AppBar
             position="relative"
@@ -41,9 +42,11 @@ function Header(props) {
 				>
 					<MenuIcon/>
 				</IconButton>
-                <Typography className={classes.headerTitle} variant="h6" align="center">
-                    Workshop <b>XML + JSON</b>
-                </Typography>
+                <Link to="/" style={{width: '100%'}}>
+                    <Typography className={classes.headerTitle} variant="h6" align="center">
+                        Workshop <b>XML + JSON</b>
+                    </Typography>
+                </Link>
             </Toolbar>
         </AppBar>
     )

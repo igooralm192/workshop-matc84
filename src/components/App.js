@@ -16,7 +16,7 @@ import MainJSON from './JSON/Main';
 
 function App(props) {
 	const [menuOpen, setMenuOpen] = useState(false);
-	
+
 	return (
 		<Router>
 			<div className="app">
@@ -33,4 +33,5 @@ function App(props) {
 		</Router>
 	);
 }
+
 export default App;
