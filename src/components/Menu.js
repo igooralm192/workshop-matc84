@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
-const styles = theme => ({
+const styles = () => ({
     root: {
       	display: 'flex',
     },
@@ -57,7 +57,7 @@ const styles = theme => ({
 });
 
 function Menu(props) {
-	const {classes} = props;
+	const { classes } = props;
 
 	const items = [
 		{
@@ -91,8 +91,8 @@ function Menu(props) {
             <List disablePadding>
 				{
 					items.map((item, i) => (
-						<Link to={item.url} className={classes.menuItemLink}>
-							<ListItem key={i} button>
+						<Link key={i} to={item.url} className={classes.menuItemLink}>
+							<ListItem button onClick={() => props.closeMenu()}>
 								<ListItemText>
 									<Typography className={classes.menuItem}>
 										<span className={clsx(item.style, classes.menuItemIcon)}>{item.icon}</span>
