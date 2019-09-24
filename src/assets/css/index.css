@@ -147,22 +147,26 @@ a {
 .pratice-challenge .expected-result {
 	border: 1px solid black;
 	width: 300px;
-	max-height: 300px;
+	max-height: 220px;
 	margin-left: 4em;
 }
 
 .pratice-challenge .pratice {
 	border: 1px solid rgba(33,36,44,0.16);
-	flex: 1 1 auto;
 	margin-top: 1em;
 }
 
 .pratice-challenge .pratice .editor {
 	border: 1px solid rgba(33,36,44,0.16);
-	min-height: 500px;
+	min-height: 400px;
 }
 
 .pratice-challenge .pratice .result {
 	border: 1px solid rgba(33,36,44,0.16);
-	
+	min-height: 400px;
+}
+
+.pratice-challenge .pratice .controls {
+	padding: 0.5em;
+	height: auto;
 }

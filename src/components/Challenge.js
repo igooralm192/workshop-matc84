@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Stages from './Stages';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 import Editor from './Editor';
 
 class Challenge extends React.Component {
@@ -25,7 +25,7 @@ class Challenge extends React.Component {
                         <Grid item>
                             <Typography className="title" variant="h3" align="center">{title}</Typography>
                         </Grid>
-                        <Grid container spacing={16} style={{minHeight: '200px'}}>
+                        <Grid container spacing={16}  style={{minHeight: '200px'}}>
                             <Grid item xs={true}>
                                 <Typography className="subtitle" variant="h6">{subtitle}</Typography>
                                 <Typography className="description">{description}</Typography>
@@ -41,6 +41,10 @@ class Challenge extends React.Component {
                             <Grid item xs={12} lg={5} className="result">
                                 Resultado
                                 {/* {result} */}
+                            </Grid>
+                            <Grid item xs={12} className="controls">
+                                <Button color="primary">Anterior</Button>
+                                <Button color="primary">Próxima</Button>
                             </Grid>
                         </Grid>
                     </Grid>
