@@ -29,32 +29,41 @@ var KEY_RIGHT = 39;
 var KEY_SPACE = 32;
 
 //  Creates an instance of the Game class.
-function Game() {
+function Game(properties) {
 
     //  Set the initial config.
     this.config = {
         bombRate: 0.05,
         bombMinVelocity: 50,
         bombMaxVelocity: 50,
-        invaderInitialVelocity: 25,
+        invaderInitialVelocity: properties.invader.speed,
+        //invaderInitialVelocity: 25,
         invaderAcceleration: 0,
         invaderDropDistance: 20,
         rocketVelocity: 120,
-        rocketMaxFireRate: 2,
+        rocketMaxFireRate: properties.ship.shotRate, // 2
         gameWidth: 400,
         gameHeight: 300,
         fps: 50,
         debugMode: false,
         invaderRanks: 5,
         invaderFiles: 10,
-        shipSpeed: 120,
-        levelDifficultyMultiplier: 0.2,
+        shipSpeed: properties.ship.speed, // 120
+        levelDifficultyMultiplier: properties.invader.difficulty, // 0.2
         pointsPerInvader: 5,
-        limitLevelIncrease: 25
+        limitLevelIncrease: 25,
+
+        gameLives: properties.game.lives,
+        invadersAmount: properties.invader.amount,
+        invadersLives: properties.invader.lives,
+        shipWidth: properties.ship.width,
+        shipHeight: properties.ship.height,
+        rocketWidth: properties.ship.rocketWidth,
+        rocketHeight: properties.ship.rocketHeight,
     };
 
     //  All state is in the variables below.
-    this.lives = 3;
+    this.lives = properties.game.lives;
     this.width = 0;
     this.height = 0;
     this.gameBounds = {left: 0, top: 0, right: 0, bottom: 0};
@@ -124,11 +133,11 @@ Game.prototype.start = function() {
     this.moveToState(new WelcomeState());
 
     //  Set the game variables.
-    this.lives = 3;
     this.config.debugMode = /debug=true/.test(window.location.href);
     console.log(this)
     //  Start the game loop.
     game = this;
+    this.lives = game.config.gameLives;
     this.intervalId = setInterval(function () { GameLoop(game);}, 1000 / this.config.fps);
 
 };
@@ -246,11 +255,11 @@ Game.prototype.keyUp = function(keyCode) {
 };
 
 function WelcomeState() {
-
+    this.ship = null
 }
 
 WelcomeState.prototype.enter = function(game) {
-
+    this.ship = new Ship(game.width / 2, game.gameBounds.bottom, game.config.shipWidth, game.config.shipHeight);
     // Create and load the sounds.
     game.sounds = new Sounds();
     game.sounds.init();
@@ -265,7 +274,6 @@ WelcomeState.prototype.update = function (game, dt) {
 };
 
 WelcomeState.prototype.draw = function(game, dt, ctx) {
-
     //  Clear the background.
     ctx.clearRect(0, 0, game.width, game.height);
 
@@ -284,7 +292,7 @@ WelcomeState.prototype.keyDown = function(game, keyCode) {
         //  Space starts the game.
         game.level = 1;
         game.score = 0;
-        game.lives = 3;
+        game.lives = game.config.gameLives;
         game.moveToState(new LevelIntroState(game.level));
     }
 };
@@ -316,10 +324,61 @@ GameOverState.prototype.draw = function(game, dt, ctx) {
 GameOverState.prototype.keyDown = function(game, keyCode) {
     if(keyCode == KEY_SPACE) {
         //  Space restarts the game.
-        game.lives = 3;
+        game.lives = game.config.gameLives;
         game.score = 0;
         game.level = 1;
         game.moveToState(new LevelIntroState(1));
+    }
+};
+
+function ShipDraw(properties) {
+    this.properties = properties
+
+    this.ship = null;
+}
+
+ShipDraw.prototype.enter = function(game) {
+    this.ship = new Ship(game.width / 2, game.gameBounds.bottom, this.properties.width, this.properties.height);
+}
+
+ShipDraw.prototype.draw = function(game, ctx) {
+    ctx.fillStyle = '#999999';
+    ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
+}
+
+function InvaderDraw(properties) {
+    this.properties = properties
+
+    this.invaders = [];
+}
+
+InvaderDraw.prototype.enter = function(game) {
+    var rank = 0
+    var amount = this.properties.amount
+    var files = amount
+    var maxFile = 10
+    var invaders = [];
+
+    for(var file = 0; file < amount; file++) {
+        if (file % 10 == 0) {
+            rank++;
+            files -= 10;
+        }
+        invaders.push(new Invader(
+            (game.width / 4) + (((maxFile)/2 + (file%10)) * 200 / (maxFile)),
+            (game.gameBounds.top + rank * 20),
+            rank, file%10, 'Invader', this.properties.lives));
+    }
+
+    this.invaders = invaders;
+};
+
+InvaderDraw.prototype.draw = function(game, ctx) {
+    //  Draw invaders.
+    ctx.fillStyle = '#006600';
+    for(var i=0; i<this.invaders.length; i++) {
+        var invader = this.invaders[i];
+        ctx.fillRect(invader.x - invader.width/2, invader.y - invader.height/2, invader.width, invader.height);
     }
 };
 
@@ -344,7 +403,7 @@ function PlayState(config, level) {
 PlayState.prototype.enter = function(game) {
 
     //  Create the ship.
-    this.ship = new Ship(game.width / 2, game.gameBounds.bottom);
+    this.ship = new Ship(game.width / 2, game.gameBounds.bottom, game.config.shipWidth, game.config.shipHeight);
 
     //  Setup initial state.
     this.invaderCurrentVelocity =  10;
@@ -361,18 +420,36 @@ PlayState.prototype.enter = function(game) {
     this.bombMaxVelocity = this.config.bombMaxVelocity + (levelMultiplier * this.config.bombMaxVelocity);
     this.rocketMaxFireRate = this.config.rocketMaxFireRate + 0.4 * limitLevel;
 
-    //  Create the invaders.
-    var ranks = this.config.invaderRanks + 0.1 * limitLevel;
-    var files = this.config.invaderFiles + 0.2 * limitLevel;
+    // //  Create the invaders.
+    // var ranks = this.config.invaderRanks + 0.1 * limitLevel;
+    // var files = this.config.invaderFiles + 0.2 * limitLevel;
+    
+    // for(var rank = 0; rank < ranks; rank++){
+        //     for(var file = 0; file < files; file++) {
+            //         invaders.push(new Invader(
+                //             (game.width / 2) + ((files/2 - file) * 200 / files),
+                //             (game.gameBounds.top + rank * 20),
+                //             rank, file, 'Invader'));
+                //     }
+                // }
+    
+    var rank = 0
+    var amount = this.config.invadersAmount
+    var files = amount
+    var maxFile = 10
     var invaders = [];
-    for(var rank = 0; rank < ranks; rank++){
-        for(var file = 0; file < files; file++) {
-            invaders.push(new Invader(
-                (game.width / 2) + ((files/2 - file) * 200 / files),
-                (game.gameBounds.top + rank * 20),
-                rank, file, 'Invader'));
+                
+    for(var file = 0; file < amount; file++) {
+        if (file%maxFile == 0) {
+            rank++;
+            files -= maxFile;
         }
+        invaders.push(new Invader(
+            (game.width / 4) + (((maxFile)/2 + (file%maxFile)) * 200 / (maxFile)),
+            (game.gameBounds.top + rank * 20),
+            rank, file%maxFile, 'Invader', this.config.invadersLives));
     }
+
     this.invaders = invaders;
     this.invaderCurrentVelocity = this.invaderInitialVelocity;
     this.invaderVelocity = {x: -this.invaderInitialVelocity, y:0};
@@ -392,7 +469,8 @@ PlayState.prototype.update = function(game, dt) {
         this.ship.x += this.shipSpeed * dt;
     }
     if(game.pressedKeys[KEY_SPACE]) {
-        this.fireRocket();
+        for (var i = 0; i < game.config.shots; i++)
+            this.fireRocket();
     }
 
     //  Keep the ship in bounds.
@@ -485,12 +563,15 @@ PlayState.prototype.update = function(game, dt) {
 
             if(rocket.x >= (invader.x - invader.width/2) && rocket.x <= (invader.x + invader.width/2) &&
                 rocket.y >= (invader.y - invader.height/2) && rocket.y <= (invader.y + invader.height/2)) {
-                
+                invader.lives--;
                 //  Remove the rocket, set 'bang' so we don't process
                 //  this rocket again.
                 this.rockets.splice(j--, 1);
-                bang = true;
-                game.score += this.config.pointsPerInvader;
+
+                if (invader.lives <= 0) {
+                    bang = true;
+                    game.score += this.config.pointsPerInvader;
+                }
                 break;
             }
         }
@@ -589,7 +670,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#ff0000';
     for(var i=0; i<this.rockets.length; i++) {
         var rocket = this.rockets[i];
-        ctx.fillRect(rocket.x, rocket.y - 2, 1, 4);
+        ctx.fillRect(rocket.x, rocket.y - 2, game.config.rocketWidth, game.config.rocketHeight);
     }
 
     //  Draw info.
@@ -724,11 +805,11 @@ LevelIntroState.prototype.draw = function(game, dt, ctx) {
   The ship has a position and that's about it.
 
 */
-function Ship(x, y) {
+function Ship(x, y, width=20, height=16) {
     this.x = x;
     this.y = y;
-    this.width = 20;
-    this.height = 16;
+    this.width = width;   // 20
+    this.height = height; // 16
 }
 
 /*
@@ -761,7 +842,7 @@ function Bomb(x, y, velocity) {
     Invader's have position, type, rank/file and that's about it. 
 */
 
-function Invader(x, y, rank, file, type) {
+function Invader(x, y, rank, file, type, lives) {
     this.x = x;
     this.y = y;
     this.rank = rank;
@@ -769,6 +850,7 @@ function Invader(x, y, rank, file, type) {
     this.type = type;
     this.width = 18;
     this.height = 14;
+    this.lives = lives
 }
 
 /*
@@ -855,4 +937,4 @@ Sounds.prototype.playSound = function(name) {
     source.start(0);
 };
 
-export { Game };
+export { Game, PlayState, InvaderDraw, ShipDraw };

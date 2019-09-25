@@ -39,8 +39,7 @@ class Challenge extends React.Component {
                                 {editor}
                             </Grid>
                             <Grid item xs={12} lg={5} className="result">
-                                Resultado
-                                {/* {result} */}
+                                {result}
                             </Grid>
                             <Grid item xs={12} className="controls">
                                 <Button color="primary">Anterior</Button>
