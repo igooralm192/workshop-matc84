@@ -16,6 +16,9 @@ function Editor(props) {
 			onChange = { props.onChange }
 			mode     = { props.mode     }
 			value    = { props.value    }
+			onValidate = { props.onValidate }
+			debounceChangePeriod={500}
+			editorProps={{$blockScrolling: true}}
 		/>
 	)
 }

@@ -4,17 +4,15 @@
 */
 
 //	Define the starfield class.
-function Starfield(properties) {
+function Starfield() {
 	this.fps = 30;
 	this.canvas = null;
 	this.width = 0;
 	this.width = 0;
 	this.minVelocity = 15;
 	this.maxVelocity = 30;
-	this.stars = properties.background.starNumber;
+	this.stars = 100;
 	this.intervalId = 0;
-	this.backgroundColor = properties.background.color
-	this.starColor = properties.background.starColor
 }
 
 //	The main function - initialises the starfield.
@@ -43,6 +41,7 @@ Starfield.prototype.initialise = function(div) {
 };
 
 Starfield.prototype.start = function() {
+
 	//	Create the stars.
 	var stars = [];
 	for(var i=0; i<this.stars; i++) {
@@ -55,7 +54,7 @@ Starfield.prototype.start = function() {
 	//	Start the timer.
 	this.intervalId = setInterval(function() {
 		self.update();
-		self.draw();
+		self.draw();	
 	}, 1000 / this.fps);
 };
 
@@ -83,11 +82,11 @@ Starfield.prototype.draw = function() {
 	var ctx = this.canvas.getContext("2d");
 
 	//	Draw the background.
- 	ctx.fillStyle = this.backgroundColor;
+ 	ctx.fillStyle = '#000000';
 	ctx.fillRect(0, 0, this.width, this.height);
 
 	//	Draw stars.
-	ctx.fillStyle = this.starColor;
+	ctx.fillStyle = '#ffffff';
 	for(var i=0; i<this.stars.length;i++) {
 		var star = this.stars[i];
 		ctx.fillRect(star.x, star.y, star.size, star.size);

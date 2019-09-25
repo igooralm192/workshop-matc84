@@ -29,15 +29,14 @@ var KEY_RIGHT = 39;
 var KEY_SPACE = 32;
 
 //  Creates an instance of the Game class.
-function Game(properties) {
+function Game() {
 
     //  Set the initial config.
     this.config = {
         bombRate: 0.05,
         bombMinVelocity: 50,
         bombMaxVelocity: 50,
-        invaderInitialVelocity: properties.invader.speed,
-        //invaderInitialVelocity: 25,
+        invaderInitialVelocity: 25,
         invaderAcceleration: 0,
         invaderDropDistance: 20,
         rocketVelocity: 120,
@@ -48,18 +47,10 @@ function Game(properties) {
         debugMode: false,
         invaderRanks: 5,
         invaderFiles: 10,
-        shipSpeed: properties.ship.speed, // 120
+        shipSpeed: 120,
         levelDifficultyMultiplier: 0.2,
         pointsPerInvader: 5,
-        limitLevelIncrease: 25,
-
-        invadersAmount: properties.invader.amount,
-        invadersShots: properties.invader.shots,
-        invadersLives: properties.invader.lives,
-        difficulty: properties.invader.difficulty,
-        shipWidth: properties.ship.width,
-        shipHeight: properties.ship.height,
-        shipShots: properties.ship.shots
+        limitLevelIncrease: 25
     };
 
     //  All state is in the variables below.
@@ -255,11 +246,11 @@ Game.prototype.keyUp = function(keyCode) {
 };
 
 function WelcomeState() {
-    this.ship = null
+
 }
 
 WelcomeState.prototype.enter = function(game) {
-    this.ship = new Ship(game.width / 2, game.gameBounds.bottom, game.config.shipWidth, game.config.shipHeight);
+
     // Create and load the sounds.
     game.sounds = new Sounds();
     game.sounds.init();
@@ -274,6 +265,7 @@ WelcomeState.prototype.update = function (game, dt) {
 };
 
 WelcomeState.prototype.draw = function(game, dt, ctx) {
+
     //  Clear the background.
     ctx.clearRect(0, 0, game.width, game.height);
 
@@ -331,57 +323,6 @@ GameOverState.prototype.keyDown = function(game, keyCode) {
     }
 };
 
-function ShipDraw(properties) {
-    this.properties = properties
-
-    this.ship = null;
-}
-
-ShipDraw.prototype.enter = function(game) {
-    this.ship = new Ship(game.width / 2, game.gameBounds.bottom, this.properties.width, this.properties.height);
-}
-
-ShipDraw.prototype.draw = function(game, ctx) {
-    ctx.fillStyle = '#999999';
-    ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
-}
-
-function InvaderDraw(properties) {
-    this.properties = properties
-
-    this.invaders = [];
-}
-
-InvaderDraw.prototype.enter = function(game) {
-    var rank = 1
-    var amount = this.properties.amount
-    var files = amount
-    var maxFile = 10
-    var invaders = [];
-
-    for(var file = 0; file < amount; file++) {
-        if (file % 10 == 0) {
-            rank++;
-            files -= 10;
-        }
-        invaders.push(new Invader(
-            (game.width / 4) + (((maxFile)/2 + (file%10)) * 200 / (maxFile)),
-            (game.gameBounds.top + rank * 20),
-            rank, file%10, 'Invader'));
-    }
-
-    this.invaders = invaders;
-};
-
-InvaderDraw.prototype.draw = function(game, ctx) {
-    //  Draw invaders.
-    ctx.fillStyle = '#006600';
-    for(var i=0; i<this.invaders.length; i++) {
-        var invader = this.invaders[i];
-        ctx.fillRect(invader.x - invader.width/2, invader.y - invader.height/2, invader.width, invader.height);
-    }
-};
-
 //  Create a PlayState with the game config and the level you are on.
 function PlayState(config, level) {
     this.config = config;
@@ -403,7 +344,7 @@ function PlayState(config, level) {
 PlayState.prototype.enter = function(game) {
 
     //  Create the ship.
-    this.ship = new Ship(game.width / 2, game.gameBounds.bottom, game.config.shipWidth, game.config.shipHeight);
+    this.ship = new Ship(game.width / 2, game.gameBounds.bottom);
 
     //  Setup initial state.
     this.invaderCurrentVelocity =  10;
@@ -420,36 +361,18 @@ PlayState.prototype.enter = function(game) {
     this.bombMaxVelocity = this.config.bombMaxVelocity + (levelMultiplier * this.config.bombMaxVelocity);
     this.rocketMaxFireRate = this.config.rocketMaxFireRate + 0.4 * limitLevel;
 
-    // //  Create the invaders.
-    // var ranks = this.config.invaderRanks + 0.1 * limitLevel;
-    // var files = this.config.invaderFiles + 0.2 * limitLevel;
-
-    // for(var rank = 0; rank < ranks; rank++){
-    //     for(var file = 0; file < files; file++) {
-    //         invaders.push(new Invader(
-    //             (game.width / 2) + ((files/2 - file) * 200 / files),
-    //             (game.gameBounds.top + rank * 20),
-    //             rank, file, 'Invader'));
-    //     }
-    // }
-
-    var rank = 1
-    var amount = this.config.invadersAmount
-    var files = amount
-    var maxFile = 10
+    //  Create the invaders.
+    var ranks = this.config.invaderRanks + 0.1 * limitLevel;
+    var files = this.config.invaderFiles + 0.2 * limitLevel;
     var invaders = [];
-
-    for(var file = 0; file < amount; file++) {
-        if (file == 10) {
-            rank++;
-            files -= 10;
+    for(var rank = 0; rank < ranks; rank++){
+        for(var file = 0; file < files; file++) {
+            invaders.push(new Invader(
+                (game.width / 2) + ((files/2 - file) * 200 / files),
+                (game.gameBounds.top + rank * 20),
+                rank, file, 'Invader'));
         }
-        invaders.push(new Invader(
-            (game.width / 4) + (((maxFile)/2 + (file%10)) * 200 / (maxFile)),
-            (game.gameBounds.top + rank * 20),
-            rank, file%10, 'Invader'));
     }
-
     this.invaders = invaders;
     this.invaderCurrentVelocity = this.invaderInitialVelocity;
     this.invaderVelocity = {x: -this.invaderInitialVelocity, y:0};
@@ -469,8 +392,7 @@ PlayState.prototype.update = function(game, dt) {
         this.ship.x += this.shipSpeed * dt;
     }
     if(game.pressedKeys[KEY_SPACE]) {
-        for (var i = 0; i < game.config.shots; i++)
-            this.fireRocket();
+        this.fireRocket();
     }
 
     //  Keep the ship in bounds.
@@ -802,11 +724,11 @@ LevelIntroState.prototype.draw = function(game, dt, ctx) {
   The ship has a position and that's about it.
 
 */
-function Ship(x, y, width=20, height=16) {
+function Ship(x, y) {
     this.x = x;
     this.y = y;
-    this.width = width;   // 20
-    this.height = height; // 16
+    this.width = 20;
+    this.height = 16;
 }
 
 /*
@@ -933,4 +855,4 @@ Sounds.prototype.playSound = function(name) {
     source.start(0);
 };
 
-export { Game, PlayState, InvaderDraw, ShipDraw };
+export { Game };
