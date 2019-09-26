@@ -1,4 +1,4 @@
-var xmltojson = require('xml-js')
+var xmltojson = require('xml-js');
 
 class ParseError {
 	constructor(errorMessage) {
