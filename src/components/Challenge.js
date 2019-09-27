@@ -12,7 +12,7 @@ class Challenge extends React.Component {
     }
 
     render() {
-        const { title, subtitle } = this.props;
+        const { title, subtitle, editor, result } = this.props;
 
         return (
             <div className="main-challenge">
@@ -31,10 +31,10 @@ class Challenge extends React.Component {
                         </Grid>
                         <Grid container className="pratice">
                             <Grid item xs={12} lg={6} className="editor">
-                                Editor
+                                {editor}
                             </Grid>
                             <Grid item xs={12} lg={6} className="result">
-                                Resultado
+                                {result}
                             </Grid>
                         </Grid>
                     </Grid>
