@@ -17,6 +17,7 @@ function Editor(props) {
 			onChange = { props.onChange }
 			mode     = { props.mode     }
 			value    = { props.value    }
+			debounceChangePeriod = { 500 }
 		/>
 	)
 }
