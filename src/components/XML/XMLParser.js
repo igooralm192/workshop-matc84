@@ -1,5 +1,6 @@
 import validator from './SceneDescription'
 import transformationObjects from './TransformationParser'
+import { TransformationType } from './ThreeTransformations'
 
 let xmltojson = require('xml-js');
 
@@ -83,6 +84,26 @@ xmlparser.getChildren = (shapeObject) => {
 	}
 	
 	return [];
+}
+
+xmlparser.getTransformations = (shapeObject) => {
+	let transformations = [];
+	if(shapeObject.hasOwnProperty('transformations')) {
+		let transformationsRoot = shapeObject.transformations;
+
+		for(let ttype in TransformationType) {
+			if(transformationsRoot.hasOwnProperty(TransformationType[ttype]))
+			{ 
+				let tobject = transformationsRoot[TransformationType[ttype]];
+				let transformation = transformationObjects[TransformationType[ttype]](
+					tobject._attributes);	 
+
+				transformations.push(transformation);
+			}
+		}
+	}
+
+	return transformations;
 }
 
 export { xmlparser, ParseErrorType };
