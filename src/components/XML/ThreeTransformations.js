@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 
 const TransformationType = {
-	TRANSLATE: 0,
-	ROTATE:    1,
-	ORBIT:     2
+	TRANSLATE: "translate",
+	ROTATE:    "rotate",
+	ORBIT:     "orbit"
 };
 
 const translateTransformation = (shape, transformationData) => {
@@ -20,5 +20,7 @@ const orbitTransformation = (shape, transformationData) => {
 
 let transforms = {};
 transforms[TransformationType.TRANSLATE] = translateTransformation;
+transforms[TransformationType.ROTATE   ] = rotateTransformation;
+transforms[TransformationType.ORBIT    ] = orbitTransformation;
 
-export default transforms; 
+export { transforms, TransformationType }; 
