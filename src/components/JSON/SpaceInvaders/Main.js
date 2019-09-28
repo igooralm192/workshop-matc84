@@ -165,6 +165,10 @@ class Main extends React.Component {
                         />
                     }
                     result={<SpaceInvaders properties={resultProperties}/>}
+                    steps={steps}
+                    activeStep={step}
+                    previousStep={ () => this.setState( { step: Math.max(0, step-1) } ) }
+                    nextStep={ () => this.setState( { step: Math.min(steps.length-1, step+1) } ) }
                 />
             </div>
         )
