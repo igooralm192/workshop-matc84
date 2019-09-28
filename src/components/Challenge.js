@@ -26,14 +26,14 @@ class Challenge extends React.Component {
 
         return (
             <div className="main-challenge">
-                <Stages steps={steps} actualStep={actualStep} changeStep={changeStep}/>
+                <Stages steps={steps} activeStep={activeStep}/>
 
                 <div className="pratice-challenge">
                     <Grid container className="container">
                         <Grid item>
                             <Typography className="title" variant="h3" align="center">{title}</Typography>
                         </Grid>
-                        <Grid container spacing={16}  style={{minHeight: '200px'}}>
+                        <Grid container style={{minHeight: '200px'}}>
                             <Grid item xs={true}>
                                 <Typography className="subtitle" variant="h6">{subtitle}</Typography>
                                 <Typography className="description">{description}</Typography>
@@ -43,10 +43,10 @@ class Challenge extends React.Component {
                             </Grid>
                         </Grid>
                         <Grid container className="pratice">
-                            <Grid item xs={12} lg={7} className="editor">
+                            <Grid item xs={12} lg={5} className="editor">
                                 {editor}
                             </Grid>
-                            <Grid item xs={12} lg={5} className="result">
+                            <Grid item xs={12} lg={7} className="result" tabindex="0">
                                 {result}
                             </Grid>
                             <Grid item xs={12} className="controls">

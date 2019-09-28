@@ -13,14 +13,14 @@ import Content from './Content';
 
 import Introduction from './Introduction';
 import MainXML from './XML/Main';
-import MainJSON from './JSON/Main';
+import MainSpaceInvaders from './JSON/SpaceInvaders/Main';
 
 const challengesXML = [
 	{path: '/xml/threejs', component: MainXML},
 ]
 
 const challengesJSON = [
-	{path: '/json/spaceinvaders', component: MainJSON}
+	{path: '/json/spaceinvaders', component: MainSpaceInvaders}
 ]
 
 function App(props) {
