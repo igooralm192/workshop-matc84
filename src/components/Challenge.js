@@ -14,11 +14,11 @@ class Challenge extends React.Component {
     }
 
     render() {
-        const { title, subtitle, description, editor, result, expectedResult } = this.props;
+        const { title, subtitle, description, editor, result, expectedResult, steps, actualStep, changeStep } = this.props;
 
         return (
             <div className="main-challenge">
-                <Stages/>
+                <Stages steps={steps} actualStep={actualStep} changeStep={changeStep}/>
 
                 <div className="pratice-challenge">
                     <Grid container className="container">
