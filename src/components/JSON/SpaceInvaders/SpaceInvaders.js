@@ -61,17 +61,14 @@ class SpaceInvaders extends React.Component {
         });
 
         this.refResultContainer.addEventListener("touchstart", (e) => {
-            this.console.log('touchstart')
             this.game.touchstart(e);
         }, false);
 
         this.refResultContainer.addEventListener('touchend', (e) => {
-            this.console.log('touchend')
             this.game.touchend(e);
         }, false);
 
         this.refResultContainer.addEventListener('touchmove', (e) => {
-            this.console.log('touchmove')
             this.game.touchmove(e);
         }, false);
 
