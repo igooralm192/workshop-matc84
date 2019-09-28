@@ -21,17 +21,12 @@ let onChange = (value) => {
 	}
 	else if(sceneDescription.errorType == ParseErrorType.INVALID_FORMAT)
 	{
-		console.log("Error");
+		console.log("Invalid format");
 		// XML is in an invalid format 
 	}
 	else
 	{
-		// Successfull parse, update scene 
 		let shapes = xmlparser.getSceneElements(sceneDescription.data.data);
-		shapes.forEach( (element, index) => {
-			xmlparser.getChildren(element);
-		})
-
  	}
 }
 
