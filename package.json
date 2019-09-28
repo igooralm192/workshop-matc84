@@ -8,7 +8,6 @@
     "@material-ui/icons": "^4.2.1",
     "gh-pages": "^2.1.1",
     "lodash": "^4.17.15",
-    "node-gyp": "^5.0.3",
     "react": "^16.9.0",
     "react-ace": "^7.0.4",
     "react-dom": "^16.9.0",
