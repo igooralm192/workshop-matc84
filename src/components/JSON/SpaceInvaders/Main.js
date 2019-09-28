@@ -12,6 +12,18 @@ const steps = [
         subtitle: 'Introdução',
         description: 'Vamos iniciar ae krl',
         initProperties: {}
+    },
+    {
+        title: challenge,
+        subtitle: 'Background',
+        description: 'Vamos iniciar ae krl',
+        initProperties: {}
+    },
+    {
+        title: challenge,
+        subtitle: 'Invaders',
+        description: 'Vamos iniciar ae krl',
+        initProperties: {}
     }
 ]
 
