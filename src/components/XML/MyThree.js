@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { withStyles } from '@material-ui/core/styles';
 
 import * as THREE from 'three'
-import Geometries from './Geometries'
+
 
 const styles = theme => ({});
 
@@ -21,16 +21,9 @@ class MainThree extends React.Component{
 
         this.scene = new THREE.Scene();
         //this.forms = new Geometries();
-        this.meshes = new Array();
-        let mesh = Geometries.addRect(this.scene, null, -0.5, 0, 0.3, 0.3, 0x42f5e3);
-        this.meshes.push(mesh);
-        let mesh2 = Geometries.addCircle(this.scene, null, 0.5, 0, 0.3);
-        this.meshes.push(mesh2);
-        let mesh3 = Geometries.addElipse(this.scene, null, 0, 0.5, 0.5, 0.2);
-        this.meshes.push(mesh3);
-
+        
        
-        console.log(this.meshes.length);
+        //console.log(this.meshes.length);
 
 
 
@@ -40,7 +33,8 @@ class MainThree extends React.Component{
         this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
         this.el.current.appendChild(this.renderer.domElement);
 
-        this.animate();
+        //this.animate();
+        this.renderer.render(this.scene, this.camera);
     }
 
     animate(){
