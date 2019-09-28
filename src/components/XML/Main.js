@@ -14,12 +14,12 @@ let onChange = (value) => {
 	editorStatus = value; 
 	const sceneDescription = xmlparser.parseXML(value); 
 
-	if(sceneDescription.errorType == ParseErrorType.XML_ILL_FORMED)
+	if(sceneDescription.errorType === ParseErrorType.XML_ILL_FORMED)
 	{
 		console.log("Error");
 		// XML is ill formed
 	}
-	else if(sceneDescription.errorType == ParseErrorType.INVALID_FORMAT)
+	else if(sceneDescription.errorType === ParseErrorType.INVALID_FORMAT)
 	{
 		console.log("Invalid format");
 		// XML is in an invalid format 
