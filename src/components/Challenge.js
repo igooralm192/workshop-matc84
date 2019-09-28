@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { Typography, Grid, Button, MobileStepper } from '@material-ui/core';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+
 import Stages from './Stages';
-import { Typography, Grid, Button } from '@material-ui/core';
 import Editor from './Editor';
 
 class Challenge extends React.Component {
@@ -14,11 +18,15 @@ class Challenge extends React.Component {
     }
 
     render() {
-        const { title, subtitle, description, editor, result, expectedResult } = this.props;
+        const { 
+            title, subtitle, description, editor, 
+            result, expectedResult, steps, activeStep 
+        } = this.props;
+
 
         return (
             <div className="main-challenge">
-                <Stages/>
+                <Stages steps={steps} actualStep={actualStep} changeStep={changeStep}/>
 
                 <div className="pratice-challenge">
                     <Grid container className="container">
@@ -42,8 +50,33 @@ class Challenge extends React.Component {
                                 {result}
                             </Grid>
                             <Grid item xs={12} className="controls">
-                                <Button color="primary">Anterior</Button>
-                                <Button color="primary">Próxima</Button>
+                                <MobileStepper
+                                    className="dots"
+                                    variant="dots"
+                                    position="static"
+                                    steps={steps.length}
+                                    activeStep={activeStep}
+                                    backButton={
+                                        <Button 
+                                            size="small"
+                                            onClick={() => this.props.previousStep()} 
+                                            disabled={activeStep === 0}
+                                        >
+                                            <KeyboardArrowLeft/>
+                                            Anterior
+                                        </Button>
+                                    }
+                                    nextButton={
+                                        <Button 
+                                            size="small" 
+                                            onClick={() => this.props.nextStep()}
+                                            disabled={activeStep === steps.length-1}
+                                        >
+                                            Próxima
+                                            <KeyboardArrowRight/>
+                                        </Button>
+                                    }
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
