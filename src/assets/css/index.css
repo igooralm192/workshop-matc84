@@ -99,7 +99,14 @@ a {
 .main-stages {
 	width: 250px;
 	min-width: 250px;
-	padding: 2em;
+	/* padding: 2em; */
+}
+
+.main-stages .steps-title {
+	font-weight: bold;
+	color: #444;
+	padding-left: 1em;
+	padding-top: 1em;
 }
 
 .pratice-challenge {

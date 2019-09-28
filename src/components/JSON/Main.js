@@ -3,43 +3,64 @@ import { withStyles } from '@material-ui/core/styles';
 import Challenge from '../Challenge';
 import Editor from '../Editor';
 
-const styles = theme => ({});
-
-const challenge = "Space Invaders";
+const challenge = 'Space Invaders'
 
 const steps = [
     {
         title: challenge,
-        subtitle: 'Introdução',
-        description: 'Vamos iniciar ae krl',
-        initProperties: {}
+        subtitle: 'Começando pela cor do Universo',
+        description: 'Bem vindo ao desafio JSON! Usaremos o clássico Space Invaders para aprender um pouco sobre JSON. Atente-se às instruções para avançar!',
+        initProperties: {},
     },
     {
         title: challenge,
-        subtitle: 'Background',
-        description: 'Faz o fundo ae poha',
-        initProperties: {}
+        subtitle: 'Quantas estrelas existem?',
+        description: 'Bem vindo ao desafio JSON! Usaremos o clássico Space Invaders para aprender um pouco sobre JSON. Atente-se às instruções para avançar!',
+        initProperties: {},
+    },
+    {
+        title: challenge,
+        subtitle: 'Mudando a cor das estrelas',
+        description: 'Bem vindo ao desafio JSON! Usaremos o clássico Space Invaders para aprender um pouco sobre JSON. Atente-se às instruções para avançar!',
+        initProperties: {},
+    },
+    {
+        title: challenge,
+        subtitle: 'Escolhendo inimigos', // Qnt, vida, velocidade e aceleração
+        description: '',
+        initProperties: {},
     }
 ]
 
-function Main(props) {
-    const [step, setStep] = useState(0);
-	const { classes } = props;
-	console.log(step)
-    return (
-        <div style={{height: '100%'}}>
-            <Challenge 
-                title={'Titulo do Desafio'} 
-                subtitle={'Titulo da etapa'} 
-                description={'Descrição da etapa'} 
-                editor={<Editor mode="json"/>}
-                steps={steps}
-                activeStep={step}
-                previousStep={() => setStep(Math.max(0, step-1))}
-                nextStep={() => setStep(Math.min(steps.length-1, step+1))}
-            />
-        </div>
-    )
+const styles = theme => ({});
+
+class Main extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            step: 0
+        }
+    }
+    
+    render() {
+        const { step } = this.state;
+        const { classes } = this.props;
+      
+        return (          
+            <div style={{height: '100%'}}>
+                <Challenge 
+                    title={'Titulo do Desafio'} 
+                    subtitle={'Titulo da etapa'} 
+                    description={'Descrição da etapa'} 
+                    editor={<Editor mode="json"/>}
+                    steps={steps}
+                    activeStep={step}
+                    previousStep={ () => this.setState( { step: Math.max(0, step-1) } ) }
+                    nextStep={ () => this.setState( { step: Math.min(steps.length-1, step+1) } ) }
+                />
+            </div>
+        );
+    }
 }
 
 export default withStyles(styles, {withTheme: true})(Main);

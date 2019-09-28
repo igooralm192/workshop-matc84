@@ -1,49 +1,55 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/styles';
+
+const styles = makeStyles(theme => ({
+  button: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  actionsContainer: {
+    marginBottom: theme.spacing(2),
+  },
+  resetContainer: {
+    paddingHorizontal: theme.spacing(3),
+  },
+}));
 
 class Stages extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-        }
-    }
-
     render() {
+        const {steps, actualStep, classes} = this.props;
+
         return (
             <div className="main-stages">
-                <ul>
-                    <li>
-                        Desafio 1
-                        <ul>
-                            <li>Etapa 1</li>
-                            <li>Etapa 2</li>
-                            <li>Etapa 3</li>
-                            <li>Etapa 4</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Desafio 2
-                        <ul>
-                            <li>Etapa 1</li>
-                            <li>Etapa 2</li>
-                            <li>Etapa 3</li>
-                            <li>Etapa 4</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Desafio 3
-                        <ul>
-                            <li>Etapa 1</li>
-                            <li>Etapa 2</li>
-                            <li>Etapa 3</li>
-                            <li>Etapa 4</li>
-                        </ul>
-                    </li>
-                </ul>
+                <Typography className="steps-title" variant="h6">
+                    Etapas
+                </Typography>
+                <Stepper activeStep={actualStep} orientation="vertical">
+                    {steps.map((step, index) => (
+                    <Step key={index}>
+                        <StepLabel>{step.subtitle}</StepLabel>
+                    </Step>
+                    ))}
+                </Stepper>
+                {actualStep === steps.length && (
+                    <Paper square elevation={0} className={classes.resetContainer}>
+                    <Typography>Todas as etapas&apos;foram finalizadas!</Typography>
+                    <Button 
+                        // onClick={handleReset}
+                        className={classes.button}>
+                        Reiniciar
+                    </Button>
+                    </Paper>
+                )}
             </div>
         );
     }
 }
 
-export default Stages;
+export default withStyles(styles, {withTheme: true})(Stages);

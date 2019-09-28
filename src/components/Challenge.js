@@ -23,9 +23,10 @@ class Challenge extends React.Component {
             result, expectedResult, steps, activeStep 
         } = this.props;
 
+
         return (
             <div className="main-challenge">
-                <Stages/>
+                <Stages steps={steps} actualStep={actualStep} changeStep={changeStep}/>
 
                 <div className="pratice-challenge">
                     <Grid container className="container">
