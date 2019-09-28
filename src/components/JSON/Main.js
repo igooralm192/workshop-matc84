@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Challenge from '../Challenge';
 import Editor from '../Editor';
@@ -29,31 +29,7 @@ const steps = [
         subtitle: 'Escolhendo inimigos', // Qnt, vida, velocidade e aceleração
         description: '',
         initProperties: {},
-    },
-    {
-        title: challenge,
-        subtitle: 'Bomba neles', //Taxa da bomba, cor da bomba
-        description: '',
-        initProperties: {},
-    },
-    {
-        title: challenge,
-        subtitle: 'Nave de guerra', // largura e altura e velocidade
-        description: '',
-        initProperties: {},
-    },
-    {
-        title: challenge,
-        subtitle: 'Que tiro foi esse', //taxa do disparo e velocidade do tiro
-        description: '',
-        initProperties: {},
-    },
-    {
-        title: challenge,
-        subtitle: 'Toques finais', // Quantas vidas, dificuldade, pontos por invader
-        description: '',
-        initProperties: {},
-    },
+    }
 ]
 
 const styles = theme => ({});
@@ -67,17 +43,20 @@ class Main extends React.Component {
     }
     
     render() {
+        const { step } = this.state;
         const { classes } = this.props;
+      
         return (          
             <div style={{height: '100%'}}>
                 <Challenge 
-                    title={steps[this.state.step].title} 
-                    subtitle={steps[this.state.step].subtitle} 
-                    description={steps[this.state.step].description} 
+                    title={'Titulo do Desafio'} 
+                    subtitle={'Titulo da etapa'} 
+                    description={'Descrição da etapa'} 
                     editor={<Editor mode="json"/>}
                     steps={steps}
-                    actualStep={this.state.step}
-                    changeStep={(step) => this.setState({step})}
+                    activeStep={step}
+                    previousStep={ () => this.setState( { step: Math.max(0, step-1) } ) }
+                    nextStep={ () => this.setState( { step: Math.min(steps.length-1, step+1) } ) }
                 />
             </div>
         );
