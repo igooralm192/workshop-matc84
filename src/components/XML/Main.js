@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-
+  import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { xmlparser, ParseErrorType } from './XMLParser'
 import Editor from '../Editor'
-import transforms from './ThreeTransformations'
+import MainThree from './MyThree'
+import Challenge from '../Challenge'
+import '../../assets/css/three.css'
+
 
 const styles = theme => ({});
 
@@ -33,12 +35,21 @@ let onChange = (value) => {
 function Main(props) {
 	const { classes } = props;
     return (
-		<div style={ { height:"100%" } }>
-			<Editor 
-				mode= "xml"
-				value = {editorStatus}
-				onChange = {onChange} />
-		</div>
+		<div style = { { height:"100%" } }>
+			<Challenge editor = {
+				<Editor 
+					mode= "xml"
+					value = {editorStatus}
+					onChange = {onChange}
+				/>
+			}
+			result = {
+				<MainThree/>
+			}>
+
+			</Challenge>
+			
+		</div>	
     )
 }
 
