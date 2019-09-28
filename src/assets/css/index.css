@@ -94,21 +94,17 @@ a {
 	display: flex;
 	width: 100%;
 	height: 100%;
-	border: 1px solid black;
-	
 }
 
 .main-stages {
 	width: 250px;
 	min-width: 250px;
-	border: 2px solid red;
 	padding: 2em;
 }
 
 .pratice-challenge {
 	flex-grow: 1;
 	padding: 2em;
-	max-height: calc(100% - 3.95em);
 	overflow: auto;
 }
 
