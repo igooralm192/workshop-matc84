@@ -37,13 +37,14 @@ function Header(props) {
         >
             <Toolbar>
 				<IconButton
+                    style={{marginRight: '0.9em'}}
 					color="inherit"
 					onClick={() => props.menuClick()}
 				>
 					<MenuIcon/>
 				</IconButton>
                 <Link to="/" style={{width: '100%'}}>
-                    <Typography className={classes.headerTitle} variant="h6" align="center">
+                    <Typography className={classes.headerTitle} variant="h6">
                         Workshop <b>XML + JSON</b>
                     </Typography>
                 </Link>

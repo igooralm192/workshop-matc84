@@ -12,7 +12,7 @@ body, html {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+	overflow: auto;
 }
 
 a {
@@ -114,8 +114,8 @@ a {
 
 .pratice-challenge {
 	flex-grow: 1;
-	padding: 2em;
-	overflow: auto;
+	padding: 24px;
+	height: 100%
 }
 
 .pratice-challenge .container {
@@ -129,7 +129,7 @@ a {
 	font-weight: bold;
 	font-size: 2em;
 	color: #444;
-	padding-bottom: 0.7em;
+	padding-bottom: 1em;
 	width: 85%;
 	flex: 0 1 auto;
 }
@@ -154,7 +154,6 @@ a {
 	border: 1px solid black;
 	width: 300px;
 	max-height: 220px;
-	margin-left: 4em;
 }
 
 .pratice-challenge .pratice {
@@ -164,12 +163,12 @@ a {
 
 .pratice-challenge .pratice .editor {
 	border: 1px solid rgba(33,36,44,0.16);
-	min-height: 400px;
+	min-height: 450px;
 }
 
 .pratice-challenge .pratice .result {
 	border: 1px solid rgba(33,36,44,0.16);
-	min-height: 500px;
+	min-height: 450px;
 	outline: none;
 }
 
