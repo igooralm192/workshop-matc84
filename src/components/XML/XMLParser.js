@@ -1,5 +1,9 @@
 import validator from './SceneDescription'
+import transformationObjects from './TransformationParser'
+
 let xmltojson = require('xml-js');
+
+let xmlparser = {};
 
 let ParseErrorType = {
 	NO_ERROR: 0,
@@ -7,7 +11,13 @@ let ParseErrorType = {
 	INVALID_FORMAT: 2
 };
 
-function parseXML(xmlString) { 
+let availableShapes = [
+	"rect", 
+	"circle",
+	"ellipse"
+];
+
+xmlparser.parseXML = (xmlString) => { 
 	let json;
 	try {
 		json = xmltojson.xml2json(xmlString, {compact: true, spaces: 4 });
@@ -38,4 +48,41 @@ function parseXML(xmlString) {
 	return obj;
 }
 
-export { ParseErrorType, parseXML };
+xmlparser.getSceneElementAttributes = (shapeObject) => {
+	return shapeObject._attributes; 
+}
+
+xmlparser.getSceneElements = (dataRoot) => {
+	let shapes = [];
+
+	for(let availableShape of availableShapes) {
+		if(dataRoot.hasOwnProperty(availableShape)) 
+		{
+			let shapeDescription = dataRoot[availableShape];
+			if(Array.isArray(shapeDescription)) {
+				shapeDescription.forEach((shape, index) => {
+					shape.type = availableShape;
+					shapes.push(shape);
+				})
+			}
+			else { 
+				shapeDescription.type = availableShape;
+				shapes.push(shapeDescription);
+			}
+		}
+	}
+
+	return shapes;
+}
+
+xmlparser.getChildren = (shapeObject) => {
+
+	if(shapeObject.hasOwnProperty('children'))	
+	{
+		return xmlparser.getSceneElements(shapeObject.children);
+	}
+	
+	return [];
+}
+
+export { xmlparser, ParseErrorType };
