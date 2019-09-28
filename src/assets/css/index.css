@@ -121,8 +121,9 @@ a {
 .pratice-challenge .title {
 	font-family: Ubuntu;
 	font-weight: bold;
+	font-size: 2em;
 	color: #444;
-	padding-bottom: 1.1em;
+	padding-bottom: 0.7em;
 	width: 85%;
 	flex: 0 1 auto;
 }
@@ -130,6 +131,7 @@ a {
 .pratice-challenge .subtitle {
 	font-family: Ubuntu;
 	font-weight: bold;
+	font-size: 1.2em;
 	color: #444;
 	padding-bottom: 20px;
 	flex: 0 1 auto;
@@ -138,21 +140,33 @@ a {
 .pratice-challenge .description {
 	text-align: justify;
 	font-family: Ubuntu;
+	font-size: 0.9em;
 	flex: 0 1 auto;
 }
 
-.pratice-challenge .pratice {
+.pratice-challenge .expected-result {
 	border: 1px solid black;
-	flex: 1 1 auto;
+	width: 300px;
+	max-height: 220px;
+	margin-left: 4em;
+}
+
+.pratice-challenge .pratice {
+	border: 1px solid rgba(33,36,44,0.16);
 	margin-top: 1em;
 }
 
 .pratice-challenge .pratice .editor {
-	border: 1px solid red;
-	min-height: 500px;
+	border: 1px solid rgba(33,36,44,0.16);
+	min-height: 400px;
 }
 
 .pratice-challenge .pratice .result {
-	border: 1px solid red;
-	
+	border: 1px solid rgba(33,36,44,0.16);
+	min-height: 400px;
+}
+
+.pratice-challenge .pratice .controls {
+	padding: 0.5em;
+	height: auto;
 }

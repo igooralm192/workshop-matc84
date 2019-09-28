@@ -7,16 +7,16 @@ import 'brace/theme/chrome'
 import 'brace/theme/monokai'
 
 function Editor(props) {
-	const { theme, onChange, mode, value } = props;
 	return( 
 		<AceEditor 
 			width    = "100%"
 			height   = "100%"
-			fontSize = { 20             }
+			fontSize = { 16             }
 			theme    = { props.theme    }
 			onChange = { props.onChange }
 			mode     = { props.mode     }
 			value    = { props.value    }
+			debounceChangePeriod = { 500 }
 		/>
 	)
 }

@@ -12,7 +12,35 @@ class Stages extends React.Component {
     render() {
         return (
             <div className="main-stages">
-                Etapas
+                <ul>
+                    <li>
+                        Desafio 1
+                        <ul>
+                            <li>Etapa 1</li>
+                            <li>Etapa 2</li>
+                            <li>Etapa 3</li>
+                            <li>Etapa 4</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Desafio 2
+                        <ul>
+                            <li>Etapa 1</li>
+                            <li>Etapa 2</li>
+                            <li>Etapa 3</li>
+                            <li>Etapa 4</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Desafio 3
+                        <ul>
+                            <li>Etapa 1</li>
+                            <li>Etapa 2</li>
+                            <li>Etapa 3</li>
+                            <li>Etapa 4</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         );
     }

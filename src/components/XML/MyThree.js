@@ -27,7 +27,7 @@ class MainThree extends React.Component{
 
 
 
-        this.scene.background = new THREE.Color(0x999999);
+        this.scene.background = new THREE.Color(0x000000);
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
