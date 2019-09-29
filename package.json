@@ -18,6 +18,7 @@
     "react-three": "^0.9.7",
     "three": "^0.108.0",
     "typescript-eslint": "0.0.1-alpha.0",
+    "validate": "^5.0.0",
     "xml-js": "^1.6.11"
   },
   "scripts": {

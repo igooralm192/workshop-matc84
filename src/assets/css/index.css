@@ -181,3 +181,12 @@ a {
 	padding: 0;
 	background: none;
 }
+
+.code-highlighter {
+	display: inline;
+	margin: 0 5px;
+	font-weight: bold;
+	background-color: #e1e1e1;
+	padding: 1px 4px;
+
+}

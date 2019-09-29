@@ -73,7 +73,6 @@ const QontoConnector = withStyles({
   
 
 function MyStepIcon(props) {
-    console.log(props)
     const { classes, active, completed, icon } = props;
 
     return (
