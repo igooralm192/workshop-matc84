@@ -24,7 +24,7 @@ class ShapeFactory{
         return mesh;
     }
 
-    static addElipse(x, y, w, h, myColor = 0x00ff00){
+    static addEllipse(x, y, w, h, myColor = 0x00ff00){
         let path = new THREE.Shape();
         path.absellipse(x, y, w, h, 0, Math.PI*2, false,0);
         let geometry = new THREE.ShapeBufferGeometry( path );

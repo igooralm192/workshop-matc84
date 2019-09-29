@@ -94,9 +94,9 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <xs:element name="transformations">
 	<xs:complexType>
 		<xs:all>
-			<xs:element ref="translate" minOccurs="0"/>
-			<xs:element ref="rotate"    minOccurs="0"/>
-			<xs:element ref="orbit"     minOccurs="0"/>
+			<xs:element ref="translate" minOccurs="0" />
+			<xs:element ref="rotate"    minOccurs="0" />
+			<xs:element ref="orbit"     minOccurs="0" />
 		</xs:all>
 	</xs:complexType>
 </xs:element>
