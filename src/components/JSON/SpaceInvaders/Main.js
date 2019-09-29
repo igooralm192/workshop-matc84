@@ -71,7 +71,7 @@ const steps = [
         title: challenge,
         subtitle: 'Hora de jogar',
         description: <p>Parabéns! Você fez um ótimo trabalho, mas agora é hora de testar, não é mesmo? Insira na raiz do código JSON um atributo chamado end com o valor verdadeiro.
-            <p>Após isso, basta clicar no espaço do jogo e apertar espaço (space) para jogar. As setas para a esquerda e direita movem a sua nave e espaço (space) atira. Seu objetivo, claramente é destruir todos os Invaders e não morrer</p>
+            <p>Após isso, basta clicar no espaço do jogo e apertar espaço (space) para jogar. As setas para a esquerda e direita movem a sua nave e espaço (space) atira. Seu objetivo claramente é destruir todos os Invaders e não morrer.</p>
         </p>,
         initProperties: {}
     }
