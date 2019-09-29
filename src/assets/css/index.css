@@ -12,7 +12,7 @@ body, html {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+	overflow: auto;
 }
 
 a {
@@ -74,9 +74,12 @@ a {
     top: 0px;
 }
 #gamecontainer {
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    width:100%;
+  	height:100%;
+    z-index: -1;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 #gamecanvas { 
     width: 800px;
@@ -94,22 +97,25 @@ a {
 	display: flex;
 	width: 100%;
 	height: 100%;
-	border: 1px solid black;
-	
 }
 
 .main-stages {
 	width: 250px;
 	min-width: 250px;
-	border: 2px solid red;
-	padding: 2em;
+	/* padding: 2em; */
+}
+
+.main-stages .steps-title {
+	font-weight: bold;
+	color: #444;
+	padding-left: 24px;
+	padding-top: 24px;
 }
 
 .pratice-challenge {
 	flex-grow: 1;
-	padding: 2em;
-	max-height: calc(100% - 3.95em);
-	overflow: auto;
+	padding: 24px;
+	height: 100%
 }
 
 .pratice-challenge .container {
@@ -123,7 +129,7 @@ a {
 	font-weight: bold;
 	font-size: 2em;
 	color: #444;
-	padding-bottom: 0.7em;
+	padding-bottom: 1em;
 	width: 85%;
 	flex: 0 1 auto;
 }
@@ -148,7 +154,6 @@ a {
 	border: 1px solid black;
 	width: 300px;
 	max-height: 220px;
-	margin-left: 4em;
 }
 
 .pratice-challenge .pratice {
@@ -158,15 +163,21 @@ a {
 
 .pratice-challenge .pratice .editor {
 	border: 1px solid rgba(33,36,44,0.16);
-	min-height: 400px;
+	min-height: 450px;
 }
 
 .pratice-challenge .pratice .result {
 	border: 1px solid rgba(33,36,44,0.16);
-	min-height: 400px;
+	min-height: 450px;
+	outline: none;
 }
 
 .pratice-challenge .pratice .controls {
 	padding: 0.5em;
 	height: auto;
+}
+
+.pratice-challenge .pratice .controls .dots {
+	padding: 0;
+	background: none;
 }
