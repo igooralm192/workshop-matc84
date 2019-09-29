@@ -7,9 +7,8 @@ const TransformationType = {
 };
 
 const translateTransformation = (shape, transformationData) => {
-	shape.mesh.translateX(transformationData.x);
+ 	shape.mesh.translateX(transformationData.x);
 	shape.mesh.translateY(transformationData.y);
-	shape.mesh.translateZ(transformationData.z);
 }
 
 const rotateTransformation = (shape, transformationData) => { 

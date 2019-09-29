@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import ShapeFactory from './ShapeFactory'
 
-const types = {
+const ShapeType = {
     RECT: 'rect',
     CIRCLE: 'circle',
     ELLIPSE: 'ellipse'
@@ -37,4 +37,4 @@ class GeometricShape{
     }
 }
 
-export default GeometricShape;
+export { GeometricShape, ShapeType };
