@@ -39,7 +39,10 @@ class Challenge extends React.Component {
                                 <Grid container style={{minHeight: '200px'}}>
                                     <Grid item xs={12} sm={true}>
                                         <Typography className="subtitle" variant="h6">{subtitle}</Typography>
-                                        <Typography className="description">{description}</Typography>
+                                        <Typography className="description">{description}
+                                            <span className="code-highlighter">{'starsColor'}</span>
+                                            vamo simbora
+                                       </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={"auto"} className="expected-result">
                                         {expectedResult}

@@ -14,13 +14,11 @@ function Starfield() {
 	this.stars = 100;
 	this.intervalId = 0;
 	this.backgroundColor = "#FFFFFF"
-	this.starColor = "#FFFFFF"
+	this.starsColor = "#FFFFFF"
 }
 
 //	The main function - initialises the starfield.
 Starfield.prototype.initialise = function(div, container) {
-	console.log(container.style.width)
-	console.log(container.clientWidth, container.clientHeight)
 	var self = this;
 
 	//	Store the div.
@@ -29,7 +27,6 @@ Starfield.prototype.initialise = function(div, container) {
 	self.height = container.clientHeight;
 
 	window.addEventListener('resize', (event) => {
-		console.log('opa')
 		self.width = container.clientWidth;
 		self.height = container.clientHeight;
 		self.canvas.width = container.clientWidth;
@@ -57,15 +54,14 @@ Starfield.prototype.start = function() {
 };
 
 Starfield.prototype.enter = function(properties) {
-	console.log('eae',properties)
 	this.backgroundColor = properties.color
-	this.starColor = properties.starColor
-	this.stars = properties.starNumber;
+	this.starsColor = properties.starsColor
+	this.stars = properties.starsNumber;
 
 	//	Create the stars.
 	var stars = [];
 	for(var i=0; i<this.stars; i++) {
-		stars[i] = new Star(Math.random()*this.width, Math.random()*this.height, Math.random()*3+1,
+		stars[i] = new Star(Math.random()*this.width, Math.random()*this.height, Math.random()*1+1,
 		 (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
 	}
 	this.stars = stars;
@@ -83,7 +79,7 @@ Starfield.prototype.update = function() {
 		star.y += dt * star.velocity;
 		//	If the star has moved from the bottom of the screen, spawn it at the top.
 		if(star.y > this.height) {
-			this.stars[i] = new Star(Math.random()*this.width, 0, Math.random()*3+1, 
+			this.stars[i] = new Star(Math.random()*this.width, 0, Math.random()*1+1, 
 		 	(Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
 		}
 	}
@@ -101,8 +97,8 @@ Starfield.prototype.draw = function() {
 	
 
 	//	Draw stars.
-	if (this.starColor) {
-		ctx.fillStyle = this.starColor;
+	if (this.starsColor) {
+		ctx.fillStyle = this.starsColor;
 			for(var i=0; i<this.stars.length;i++) {
 				var star = this.stars[i];
 				ctx.fillRect(star.x, star.y, star.size, star.size);

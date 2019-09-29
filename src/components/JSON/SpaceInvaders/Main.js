@@ -4,6 +4,9 @@ import Challenge from '../../Challenge';
 import Editor from '../../Editor';
 import SpaceInvaders from './SpaceInvaders';
 
+import Schema from 'validate'
+import Validator from './Validator'
+
 const challenge = 'Space Invaders'
 
 const steps = [
@@ -27,35 +30,6 @@ const steps = [
     }
 ]
 
-const properties = {
-    background: {
-        color: '#000000',
-        starColor: 'yellow',
-        starNumber: 1001
-    },
-    invader: {
-        amount: 34,
-        lives: 2,
-        speed: 25,
-        acceleration: 0,
-        bombColor: '#ff5555',
-        bombRate: 0.05
-    },
-    ship: {
-        width: 20,
-        height: 18,
-        speed: 200,
-        shootRate: 5,
-        rocketVelocity: 2,
-    },
-    game: {
-        lives: 5,
-        difficultyMultiplier: 0.2,
-        pointsPerInvader: 20
-    },
-    end: false
-}
-
 class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -63,106 +37,46 @@ class Main extends React.Component {
         this.state = {
             step: 0,
             editorValue: '',
-            resultProperties: {}
+            resultProperties: {},
+            errors: []
         }
 
-        this.handleEditor = this.handleEditor.bind(this)
+        this.schema = new Schema(Validator);
     }
 
-    validBackground(properties) {
-        let { background } = properties;
+    handleEditor(value, step) {          
+        let properties = {};
 
-        if (background && typeof background === 'object' && !Array.isArray(background)) {
-            let { color, starColor, starNumber } = background;
+        try { var editorProperties = JSON.parse(value); } catch(e) { 
+            this.setState({editorValue: value})
+            return;
+        }
 
-            if (color && typeof color !== 'string') 
-                delete properties.background.color;
-            if (starColor && typeof starColor !== 'string') 
-                delete properties.background.starColor;
-            if (starNumber && typeof starNumber !== 'number') 
-                delete properties.background.starNumber;
+        if (step == 0) properties = {}
+        if (step >= 1) properties = {...properties, background: {...editorProperties.background}}
+        if (step >= 2) properties = {...properties, invader: {...editorProperties.invader}}
+        if (step >= 3) properties = {...properties, ship: {...editorProperties.ship}}
+        if (step >= 4) properties = {...properties, game: {...editorProperties.game}}
+        if (step >= 5) properties = {...properties, start: editorProperties.start}
 
-        } else delete properties.background;
+        let validation = this.schema.validate(properties);
 
-        return properties;
+        if (validation.length > 0) {
+            this.setState({editorValue: value, errors: [{ row: 0, column: 0, type: 'error', text: validation[0].message}]});
+            return;
+        }
+
+        this.setState({editorValue: value, resultProperties: properties, errors: []})
     }
 
-    validInvader(properties) {
-        let { invader } = properties;
-
-        if (invader && typeof invader === 'object' && !Array.isArray(invader)) {
-            let { amount, speed, lives, difficulty } = invader;
-
-            if (amount > 0 && !Number.isInteger(amount)) 
-                delete properties.invader.amount;
-            if (speed > 0 && !Number.isInteger(speed)) 
-                delete properties.invader.speed;
-            if (lives > 0 && !Number.isInteger(lives)) 
-                delete properties.invader.lives;
-            if (difficulty > 0 && !(Number(difficulty) === difficulty && difficulty%1 !== 0)) 
-                delete properties.invader.difficulty;
-
-        } else delete properties.invader;
-
-        return properties
-    }
-
-    validShip(properties) {
-        let { ship } = properties;
-
-        if (ship && typeof ship === 'object' && !Array.isArray(ship)) {
-            let { width, height, speed, shootRate } = ship;
-
-            if (width > 0 && !Number.isInteger(width)) 
-                delete properties.ship.width;
-            if (height > 0 && !Number.isInteger(height)) 
-                delete properties.ship.height;
-            if (speed > 0 && !Number.isInteger(speed)) 
-                delete properties.ship.speed;   
-            if (shootRate > 0 && !Number.isInteger(shootRate)) 
-                delete properties.ship.shootRate;
-
-        } else delete properties.ship;
-
-        return properties
-    }
-
-    // validGame(properties) {
-    //     let { game } = properties;
-
-    //     if (game && typeof game === 'object' && !Array.isArray(game)) {
-    //         let { width, height, speed, shootRate } = ship;
-
-    //         if (width > 0 && !Number.isInteger(width)) 
-    //             delete properties.ship.width;
-    //         if (height > 0 && !Number.isInteger(height)) 
-    //             delete properties.ship.height;
-    //         if (speed > 0 && !Number.isInteger(speed)) 
-    //             delete properties.ship.speed;   
-    //         if (shootRate > 0 && !(Number(shootRate) === shootRate && shootRate%1 !== 0)) 
-    //             delete properties.ship.shootRate;
-
-    //     } else delete properties.ship;
-
-    //     return properties
-    // }
-
-    handleEditor(value) {        
-        let properties = this.state.resultProperties;
-
-        try { properties = JSON.parse(value)} catch(e) {}
-
-        properties = this.validBackground(properties);
-        properties = this.validInvader(properties);
-        properties = this.validShip(properties);
-
-        this.setState({editorValue: value, resultProperties: properties})
+    handleStep(step) {
+        this.setState({step})
+        this.handleEditor(this.state.editorValue, step)
     }
 
     render() {
-        const { step, editorValue, resultProperties } = this.state;
+        const { step, editorValue, resultProperties, errors } = this.state;
 
-        console.log(editorValue, resultProperties)
         return (
             <div style={{height: '100%'}}>
                 <Challenge 
@@ -173,14 +87,15 @@ class Main extends React.Component {
                         <Editor 
                             mode="json" 
                             value={editorValue}
-                            onChange={(value) => this.handleEditor(value)}
+                            annotations={errors}
+                            onChange={(value) => this.handleEditor(value, step)}
                         />
                     }
                     result={<SpaceInvaders properties={resultProperties}/>}
                     steps={steps}
                     activeStep={step}
-                    previousStep={ () => this.setState( { step: Math.max(0, step-1) } ) }
-                    nextStep={ () => this.setState( { step: Math.min(steps.length-1, step+1) } ) }
+                    previousStep={ () => this.handleStep(Math.max(0, step-1)) }
+                    nextStep={ () => this.handleStep(Math.min(steps.length-1, step+1)) }
                 />
             </div>
         )

@@ -22,11 +22,18 @@ class SpaceInvaders extends React.Component {
             var canvas = document.getElementById("gameCanvas");
             canvas.width = this.refResultContainer.clientWidth;
             canvas.height = this.refResultContainer.clientHeight;
-            //this.clearContainer();
-            //this.game.initialise(canvas);
-            //this.game.stop();
-            //this.game.start();
-            //this.drawInvaders(this.props.properties.invader, this.game)
+            this.clearContainer();
+            this.game.initialise(canvas);
+
+            if (this.props.properties.start) {
+                this.game.initialise(canvas);
+                this.game.stop();
+                this.game.start();
+            } else {
+                this.createGame(this.props.properties);
+            }
+            
+            
         }
 
         var container = document.getElementById('starfield');
@@ -50,13 +57,13 @@ class SpaceInvaders extends React.Component {
             if(keycode == 37 || keycode == 39 || keycode == 32) {
                 e.preventDefault();
             }
-            console.log('down',keycode)
+            //console.log('down',keycode)
             this.game.keyDown(keycode);
 
         });
         this.refResultContainer.addEventListener("keyup", (e) => {
             var keycode = e.which || window.event.keycode;
-            console.log('up',keycode)
+            //console.log('up',keycode)
             this.game.keyUp(keycode);
         });
 
@@ -84,14 +91,14 @@ class SpaceInvaders extends React.Component {
         this.createGame(props.properties);
     }
 
-    createGame({ background, invader, ship, game, end }) {
+    createGame({ background, invader, ship, game, start }) {
         this.clearContainer();
         this.drawBackground(background, this.starfield);
         this.drawInvaders(invader, this.game);
         this.drawShip(ship, this.game)
         this.configGame(game, this.game)
-        this.startGame(end, this.game, this.starfield)
-        console.log(this.game)
+        this.startGame(start, this.game, this.starfield)
+        //console.log(this.game)
     }
 
     clearContainer() {
@@ -111,6 +118,7 @@ class SpaceInvaders extends React.Component {
     
     drawInvaders(data, game) {
         if (data && game) {
+            console.log('eae')
             var invader = new InvaderDraw(data, game)
             invader.enter(game)
             invader.draw(game, game.gameCanvas.getContext("2d"))
@@ -135,10 +143,12 @@ class SpaceInvaders extends React.Component {
         }
     }
     
-    startGame(end, game, starfield) {
-        console.log(game, starfield)
+    startGame(data, game, starfield) {
+        //console.log(game, starfield)
         //  Start the game.
-        if (end && game) {
+        if (data && game && starfield) {
+            
+
             game.start();
             starfield.start();
         }
