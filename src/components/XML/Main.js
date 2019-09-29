@@ -26,6 +26,7 @@ let onChange = (value) => {
 	{
 		// XML is in an invalid format 
 		console.log("Invalid format");
+		console.log(sceneDescription.data);
 	}
 	else if(sceneDescription.errorType === ParseErrorType.MISSING_ROOT_ELEMENT) 
 	{

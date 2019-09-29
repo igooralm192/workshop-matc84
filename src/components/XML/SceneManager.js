@@ -34,27 +34,14 @@ class SceneManager {
 		let mesh;
 		
 		if(sceneElement.type == ShapeType.RECT) {
-			mesh = ShapeFactory.addRect(
-					attributes.x,
-					attributes.y,
-					attributes.w,
-					attributes.h
-			);
+			mesh = ShapeFactory.addRect( attributes );
 
 		}
 		else if(sceneElement.type == ShapeType.CIRCLE) {
-			mesh = ShapeFactory.addCircle(
-				attributes.x,
-				attributes.y,
-				attributes.r
-			);
+			mesh = ShapeFactory.addCircle(attributes);
 		}
 		else {
-			mesh = ShapeFactory.addEllipse(
-				attributes.x,
-				attributes.y,
-				attributes.r
-			);
+			mesh = ShapeFactory.addEllipse(attributes);
 		}
 		
 		let shape = new GeometricShape(ShapeType.RECT, mesh, parent);

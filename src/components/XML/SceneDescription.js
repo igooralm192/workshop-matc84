@@ -19,7 +19,24 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <xs:attribute name="h" type="xs:decimal" />
 <xs:attribute name="r" type="xs:decimal" />
 <xs:attribute name="speed" type="xs:decimal" />
-<xs:attribute name="color" type="xs:string" /> 
+<xs:attribute name="color">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="white"  />
+			<xs:enumeration value="black"  />
+			<xs:enumeration value="green"  />
+			<xs:enumeration value="gray"   />
+			<xs:enumeration value="violet" />
+			<xs:enumeration value="pink"   />
+			<xs:enumeration value="brown"  />
+			<xs:enumeration value="orange" />
+			<xs:enumeration value="yellow" />
+			<xs:enumeration value="blue"   />
+			<xs:enumeration value="red"    />
+			<xs:enumeration value="purple" />		
+		</xs:restriction>
+	</xs:simpleType> 
+</xs:attribute>
 
 <!-- Geometry -->
 <xs:element name="rect">
