@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import { xmlparser, ParseErrorType } from './XMLParser'
 import { MainThree, sceneManager } from './MainThree'
 import Editor from '../Editor'
+import xmlChallengeSteps from './ChallengeSteps'
 import Challenge from '../Challenge'
 import '../../assets/css/three.css'
 
@@ -40,21 +41,28 @@ let onChange = (value) => {
 
 function Main(props) {
 	const { classes } = props;
+	const [ step, setStep ] = useState(0);
+
     return (
 		<div style = { { height:"100%" } }>
 			<Challenge editor = {
 				<Editor 
 					mode= "xml"
 					value = {editorStatus}
-					onChange = {onChange}
-				/>
-			}
-			result = {
-				<MainThree/>
-			}>
-
-			</Challenge>
-			
+					onChange = {onChange} />
+				}
+				title = { xmlChallengeSteps[step].title }
+				subtitle = { xmlChallengeSteps[step].subtitle }
+				description = { xmlChallengeSteps[step].description }
+				result = { <MainThree/> }
+				steps = { xmlChallengeSteps } 
+				activeStep = { step }
+				previousStep={ () => 
+					setStep(Math.max(0, step - 1))}
+				nextStep={ () => 
+					setStep(Math.min(xmlChallengeSteps.length-1, step+1))}
+			/>
+					
 		</div>	
     )
 }
