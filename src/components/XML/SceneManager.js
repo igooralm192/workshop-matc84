@@ -35,7 +35,6 @@ class SceneManager {
 		
 		if(sceneElement.type == ShapeType.RECT) {
 			mesh = ShapeFactory.addRect( attributes );
-
 		}
 		else if(sceneElement.type == ShapeType.CIRCLE) {
 			mesh = ShapeFactory.addCircle(attributes);
@@ -56,9 +55,7 @@ class SceneManager {
 
 		let children = xmlparser.getSceneElementChildren(sceneElement);
 
-		children.forEach((element, index) => {
-			this.CreateShape(element, shape);
-		});
+		children.forEach((element, index) => this.CreateShape(element, shape));
 	}
 
 	Update() {

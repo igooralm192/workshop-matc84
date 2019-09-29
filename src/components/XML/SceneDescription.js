@@ -15,6 +15,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Generic posittion, speed and color attributes -->
 <xs:attribute name="x" type="xs:decimal" />
 <xs:attribute name="y" type="xs:decimal" />
+<xs:attribute name="z" type="xs:decimal" />
 <xs:attribute name="w" type="xs:decimal" />
 <xs:attribute name="h" type="xs:decimal" />
 <xs:attribute name="r" type="xs:decimal" />
@@ -47,6 +48,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 		</xs:all>
 		<xs:attribute ref="x" use="required" />
 		<xs:attribute ref="y" use="required" />
+		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="w" use="required" />
 		<xs:attribute ref="h" use="required" />
 		<xs:attribute ref="color" use="optional" />
@@ -61,6 +63,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 		</xs:all>
 		<xs:attribute ref="x" use="required" />
 		<xs:attribute ref="y" use="required" />
+		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="r" use="required" />
 		<xs:attribute ref="color"  use="optional" />
 	</xs:complexType>
@@ -72,6 +75,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 		</xs:all>
 		<xs:attribute ref="x" use="required" />
 		<xs:attribute ref="y" use="required" />
+		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="w" use="required" />
 		<xs:attribute ref="h" use="required" />
 		<xs:attribute ref="color"  use="optional" />

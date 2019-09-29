@@ -11,7 +11,7 @@ import '../../assets/css/three.css'
 const styles = theme => ({});
 
 // Editor initial state
-let editorStatus = "<data>\n\t<rect x=\"0\" y=\"0\" w=\"0.2\" h=\"0.2\"/>\n</data>";
+let editorStatus = "<data>\n\t<rect x=\"0\" y=\"0\" w=\"100\" h=\"100\"/>\n</data>";
 
 let onChange = (value) => { 
 	editorStatus = value; 
