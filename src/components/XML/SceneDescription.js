@@ -52,8 +52,8 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 			<xs:element ref="children"        minOccurs="0" maxOccurs="1"/>	
 			<xs:element ref="transformations" minOccurs="0" maxOccurs="1"/>
 		</xs:all>
-		<xs:attribute ref="x" use="required" />
-		<xs:attribute ref="y" use="required" />
+		<xs:attribute ref="x" use="optional" />
+		<xs:attribute ref="y" use="optional" />
 		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="w" use="required" />
 		<xs:attribute ref="h" use="required" />
@@ -67,8 +67,8 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 			<xs:element ref="children"        minOccurs="0" maxOccurs="1"/>	
 			<xs:element ref="transformations" minOccurs="0" maxOccurs="1"/>
 		</xs:all>
-		<xs:attribute ref="x" use="required" />
-		<xs:attribute ref="y" use="required" />
+		<xs:attribute ref="x" use="optional" />
+		<xs:attribute ref="y" use="optional" />
 		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="r" use="required" />
 		<xs:attribute ref="color"  use="optional" />
@@ -79,8 +79,8 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 			<xs:element ref="children"        minOccurs="0" maxOccurs="1"/>	
 			<xs:element ref="transformations" minOccurs="0" maxOccurs="1"/>
 		</xs:all>
-		<xs:attribute ref="x" use="required" />
-		<xs:attribute ref="y" use="required" />
+		<xs:attribute ref="x" use="optional" />
+		<xs:attribute ref="y" use="optional" />
 		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="w" use="required" />
 		<xs:attribute ref="h" use="required" />
