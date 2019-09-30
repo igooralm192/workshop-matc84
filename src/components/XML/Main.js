@@ -11,7 +11,7 @@ import '../../assets/css/three.css'
 const styles = theme => ({});
 
 // Editor initial state
-let editorStatus = "<data>\n\t<rect x=\"0\" y=\"0\" w=\"0.2\" h=\"0.2\"/>\n</data>";
+let editorStatus = "<data>\n\t<rect x=\"0\" y=\"0\" w=\"100\" h=\"100\"/>\n</data>";
 
 let onChange = (value) => { 
 	editorStatus = value; 
@@ -26,6 +26,7 @@ let onChange = (value) => {
 	{
 		// XML is in an invalid format 
 		console.log("Invalid format");
+		console.log(sceneDescription.data);
 	}
 	else if(sceneDescription.errorType === ParseErrorType.MISSING_ROOT_ELEMENT) 
 	{
@@ -61,6 +62,7 @@ function Main(props) {
 					setStep(Math.max(0, step - 1))}
 				nextStep={ () => 
 					setStep(Math.min(xmlChallengeSteps.length-1, step+1))}
+				expectedResult = { <MainThree /> }
 			/>
 					
 		</div>	

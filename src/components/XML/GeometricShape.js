@@ -11,9 +11,7 @@ class GeometricShape{
     constructor(type, mesh, parent){
         this.type = type;
         this.mesh = mesh;
-        
         this.parent = parent;
-           
         this.children = new Array();
         this.transforms = new Array();
     }
