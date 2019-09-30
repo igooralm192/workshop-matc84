@@ -19,7 +19,7 @@ export default ({
     invader: {
         amount: {
             type: Number,
-            size: {min: 1, max: 30},
+            size: {min: 1, max: 50},
             use: {isInteger: isIntegerUse},
             message: {isInteger: isIntegerMessage}
         },
@@ -65,13 +65,13 @@ export default ({
         },
         speed: {
             type: Number,
-            size: {min: 1, max: 300},
+            size: {min: 20, max: 300},
             use: {isInteger: isIntegerUse},
             message: {isInteger: isIntegerMessage}
         },
         shootRate: {
             type: Number,
-            size: {min: 0.1, max: 3},
+            size: {min: 0.1, max: 5},
         },
         rocketVelocity: {
             type: Number,
@@ -91,9 +91,9 @@ export default ({
             type: Number,
             size: {min: 0.01, max: 1},
         },
-        pointerPerInvader: {
+        pointsPerInvader: {
             type: Number,
-            size: {min: 1},
+            size: {min: 1, max: 1e9},
             use: {isInteger: isIntegerUse},
             message: {isInteger: isIntegerMessage}
         }

@@ -223,7 +223,6 @@ Game.prototype.stop = function Stop() {
 
 //  Inform the game a key is down.
 Game.prototype.keyDown = function(keyCode) {
-    console.log(this.pressedKeys)
     this.pressedKeys[keyCode] = true;
     //  Delegate to the current state too.
     if(this.currentState() && this.currentState().keyDown) {
@@ -493,6 +492,7 @@ PlayState.prototype.enter = function(game) {
     
     this.invaders = invaders;
     this.invaderCurrentVelocity = this.invaderInitialVelocity;
+    
     this.invaderVelocity = {x: -this.invaderInitialVelocity, y:0};
     this.invaderNextVelocity = null;
 };
@@ -548,8 +548,10 @@ PlayState.prototype.update = function(game, dt) {
 
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
-        var newx = invader.x + Math.round(this.invaderVelocity.x * dt);
-        var newy = invader.y + Math.round(this.invaderVelocity.y * dt);
+
+        var newx = invader.x + this.invaderVelocity.x * dt;
+        var newy = invader.y + this.invaderVelocity.y * dt;
+
         if(hitLeft == false && newx < game.gameBounds.left) {
             hitLeft = true;
         }
@@ -563,15 +565,15 @@ PlayState.prototype.update = function(game, dt) {
 
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
-        var newx = invader.x + Math.round(this.invaderVelocity.x * dt);
-        var newy = invader.y + Math.round(this.invaderVelocity.y * dt);
+
+        var newx = invader.x + this.invaderVelocity.x * dt;
+        var newy = invader.y + this.invaderVelocity.y * dt;
 
         if(!hitLeft && !hitRight && !hitBottom) {
             invader.x = newx;
             invader.y = newy;
         }
     }
-
     //  Update invader velocities.
     if(this.invadersAreDropping) {
         this.invaderCurrentDropDistance += this.invaderVelocity.y * dt;
@@ -700,7 +702,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
 
     //  Draw invaders.
-    ctx.fillStyle = '#006600';
+    ctx.fillStyle = '#00BB00';
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x, invader.y, invader.width, invader.height);
@@ -759,7 +761,6 @@ PlayState.prototype.keyUp = function(game, keyCode) {
 };
 
 PlayState.prototype.fireRocket = function() {
-    console.log('ué')
     //  If we have no last rocket time, or the last rocket time 
     //  is older than the max rocket rate, we can fire.
     if(this.lastRocketTime === null || ((new Date()).valueOf() - this.lastRocketTime) > (1000 / this.rocketMaxFireRate))
