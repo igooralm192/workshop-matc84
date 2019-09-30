@@ -12,6 +12,7 @@ const styles = theme => ({});
 
 // Editor initial state
 let editorStatus = "<data>\n\t<rect x=\"0\" y=\"0\" w=\"100\" h=\"100\"/>\n</data>";
+editorStatus = "";
 
 let onChange = (value) => { 
 	editorStatus = value; 
