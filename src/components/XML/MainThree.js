@@ -13,6 +13,7 @@ class MainThree extends React.Component{
         super();
 		this.backgroundColor = 'white';
         this.el = React.createRef();
+		this.windowResizeHandler = () => { this.onWindowResize() }
     }
 
     init(){
@@ -39,7 +40,7 @@ class MainThree extends React.Component{
         this.renderer.render(this.scene, this.camera);
 		sceneManager = new SceneManager(this.scene, this.renderer);
 
-		window.addEventListener('resize', () => { this.onWindowResize() }, false);
+		window.addEventListener('resize', this.windowResizeHandler, false);
 		this.animate();
     }
 
@@ -51,6 +52,7 @@ class MainThree extends React.Component{
     }
 	
 	onWindowResize() {
+		console.log("resizing");
 		this.camera.aspect = this.el.current.offsetWidth / this.el.current.offsetHeight;
 		this.camera.updateProjectionMatrix();
 		this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
@@ -60,6 +62,10 @@ class MainThree extends React.Component{
         this.init();
     }
 
+	componentWillUnmount() {
+		console.log("unmounting");
+		window.removeEventListener('resize', this.windowResizeHandler); 
+	}
     render() { 
 		return(
 			<div className={clsx('split', 'right') } ref={this.el}> </div>
