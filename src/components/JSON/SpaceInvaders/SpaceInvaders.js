@@ -91,13 +91,15 @@ class SpaceInvaders extends React.Component {
         this.createGame(props.properties);
     }
 
-    createGame({ background, invader, ship, game, start }) {
+    createGame(properties) {
+        console.log(properties)
+        let { background, invader, ship, game, start } = properties
         this.clearContainer();
         this.drawBackground(background, this.starfield);
         this.drawInvaders(invader, this.game);
         this.drawShip(ship, this.game)
         this.configGame(game, this.game)
-        this.startGame(start, this.game, this.starfield)
+        this.startGame(start, this.game, this.starfield, properties)
         //console.log(this.game)
     }
 
@@ -107,6 +109,9 @@ class SpaceInvaders extends React.Component {
 
         let ctxStarfield = this.starfield.canvas.getContext('2d');
         ctxStarfield.clearRect(0, 0, this.starfield.width, this.starfield.height)
+
+        this.starfield.stop();
+        this.game.stop();
     }
 
     drawBackground(data, starfield) {
@@ -143,14 +148,37 @@ class SpaceInvaders extends React.Component {
         }
     }
     
-    startGame(data, game, starfield) {
+    startGame(data, game, starfield, properties) {
         //console.log(game, starfield)
         //  Start the game.
         if (data && game && starfield) {
-            
-
-            game.start();
+            let { background, invader, ship, game: gameConfig } = properties;
+            starfield.enter({
+                color: background.color?background.color:'#000',
+                starsColor: background.starsColor?background.starsColor:'#fff',
+                starsNumber: background.starsNumber?background.starsNumber:100,
+            })
             starfield.start();
+            game.setConfig({
+                invadersAmount: invader.amount?invader.amount:20,
+                invaderInitialVelocity: invader.speed?invader.speed:25,
+                invadersLives: invader.lives?invader.lives:1,
+                invaderAcceleration: invader.acceleration?invader.acceleration:0,
+                bombColor: invader.bombColor?invader.bombColor:'#ff3333',
+                bombRate: invader.bombRate?invader.bombRate:0.05,
+
+                shipWidth: ship.width?ship.width:20,
+                shipHeight: ship.height?ship.height:20,
+                shipSpeed: ship.speed?ship.speed:120,
+                rocketVelocity: ship.rocketVelocity?ship.rocketVelocity:120,
+                rocketMaxFireRate: ship.shootRate?ship.shootRate:2,
+
+                gameLives: gameConfig.lives?gameConfig.lives:3,
+                levelDifficultyMultiplier: gameConfig.difficultyMultiplier?gameConfig.difficultyMultiplier:0.2,
+                pointsPerInvader: gameConfig.pointsPerInvader?gameConfig.pointsPerInvader:50
+            })
+            game.start();
+            
         }
     }
 
