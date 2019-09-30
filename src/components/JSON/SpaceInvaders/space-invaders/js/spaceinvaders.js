@@ -107,6 +107,7 @@ Game.prototype.initialise = function(gameCanvas) {
     this.height = gameCanvas.height;
     this.config.gameWidth = gameCanvas.width/1.5;
     this.config.gameHeight = gameCanvas.height/1.5;
+
     //  Set the state game bounds.
     this.gameBounds = {
         left: gameCanvas.width / 2 - this.config.gameWidth / 2,
@@ -401,7 +402,7 @@ InvaderDraw.prototype.enter = function(game) {
 
 InvaderDraw.prototype.draw = function(game, ctx) {
     //  Draw invaders.
-    ctx.fillStyle = '#009900';
+    ctx.fillStyle = '#00BB00';
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x - invader.width/2, invader.y - invader.height/2, invader.width, invader.height);

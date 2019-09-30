@@ -18,6 +18,7 @@ function Editor(props) {
 			value    = { props.value    }
 			debounceChangePeriod={500}
 			editorProps={{$blockScrolling: true}}
+			{...props}
 		/>
 	)
 }
