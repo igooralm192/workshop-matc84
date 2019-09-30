@@ -16,7 +16,7 @@ const translateTransformation = (shape, transformationData) => {
 }
 
 const rotateTransformation = (shape, transformationData) => { 
-	shape.mesh.rotateOnAxis(new THREE.Vector3(0, 0, 1), transformationData.speed);
+	shape.mesh.rotateOnAxis(new THREE.Vector3(0, 0, 1), transformationData.speed * 0.001);
 }
 
 const orbitTransformation = (shape, transformationData) => {
