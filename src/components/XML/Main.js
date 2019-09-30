@@ -62,6 +62,7 @@ function Main(props) {
 					setStep(Math.max(0, step - 1))}
 				nextStep={ () => 
 					setStep(Math.min(xmlChallengeSteps.length-1, step+1))}
+				expectedResult = { <MainThree /> }
 			/>
 					
 		</div>	

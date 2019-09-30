@@ -11,7 +11,7 @@ let sceneManager;
 class MainThree extends React.Component{
     constructor(){
         super();
-		this.backgroundColor = 'black';
+		this.backgroundColor = 'white';
         this.el = React.createRef();
     }
 
@@ -22,8 +22,8 @@ class MainThree extends React.Component{
 		this.camera = new THREE.OrthographicCamera(
 			this.el.current.offsetWidth / -2, 
 			this.el.current.offsetWidth /  2,
-			this.el.current.offsetHeight / -2,
-			this.el.current.offsetHeight /  2);
+			this.el.current.offsetHeight / 2,
+			this.el.current.offsetHeight /  -2);
 
 		// Moves the camera far away, so the most object with a 
 		// positive z coordinate will be visible

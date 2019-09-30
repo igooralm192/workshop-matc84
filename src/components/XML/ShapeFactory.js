@@ -52,7 +52,7 @@ class ShapeFactory{
     }
 
 	static getColorAttribute(attributes) {
-		return attributes.hasOwnProperty('color') ? attributes.color : 'white';
+		return attributes.hasOwnProperty('color') ? attributes.color : 'black';
 	}
 	
 	static getZCoordinateAttribute(attributes) {

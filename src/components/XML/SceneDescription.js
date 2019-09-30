@@ -20,19 +20,25 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <xs:attribute name="h" type="xs:decimal" />
 <xs:attribute name="r" type="xs:decimal" />
 <xs:attribute name="speed" type="xs:decimal" />
+<xs:attribute name="angle" type="xs:decimal" />
 <xs:attribute name="color">
 	<xs:simpleType>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="white"  />
 			<xs:enumeration value="black"  />
 			<xs:enumeration value="green"  />
+			<xs:enumeration value="lightgreen"  />
 			<xs:enumeration value="gray"   />
+			<xs:enumeration value="lightgray"   />
 			<xs:enumeration value="violet" />
 			<xs:enumeration value="pink"   />
+			<xs:enumeration value="lightpink"   />
 			<xs:enumeration value="brown"  />
 			<xs:enumeration value="orange" />
 			<xs:enumeration value="yellow" />
+			<xs:enumeration value="lightyellow" />
 			<xs:enumeration value="blue"   />
+			<xs:enumeration value="lightblue"   />
 			<xs:enumeration value="red"    />
 			<xs:enumeration value="purple" />		
 		</xs:restriction>
@@ -106,6 +112,12 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 	</xs:complexType>
 </xs:element>
 
+<xs:element name="tilt">
+	<xs:complexType>
+		<xs:attribute ref="angle" use="required" />
+	</xs:complexType>
+</xs:element>
+
 <xs:element name="orbit">
 	<xs:complexType>
 		<xs:attribute ref="speed" use="required" />
@@ -118,6 +130,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 			<xs:element ref="translate" minOccurs="0" />
 			<xs:element ref="rotate"    minOccurs="0" />
 			<xs:element ref="orbit"     minOccurs="0" />
+			<xs:element ref="tilt"      minOccurs="0" />
 		</xs:all>
 	</xs:complexType>
 </xs:element>

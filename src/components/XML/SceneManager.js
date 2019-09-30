@@ -45,7 +45,7 @@ class SceneManager {
 		
 		let shape = new GeometricShape(ShapeType.RECT, mesh, parent);
 		let transformations = xmlparser.getTransformations(sceneElement);
-		transformations.forEach( (transformation, index) => { 
+		transformations.forEach( (transformation, index) => {
 			shape.addTransformation(transformation) 
 		});
 
