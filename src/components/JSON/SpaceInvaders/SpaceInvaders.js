@@ -8,6 +8,8 @@ class SpaceInvaders extends React.Component {
 
         this.game = null;
         this.starfield = null;
+
+        this.onResize = this.onResize.bind(this);
     }
 
     componentDidMount() {
@@ -18,23 +20,7 @@ class SpaceInvaders extends React.Component {
         canvas.width = this.refResultContainer.clientWidth;
         canvas.height = this.refResultContainer.clientHeight;
 
-        window.onresize = () => {
-            var canvas = document.getElementById("gameCanvas");
-            canvas.width = this.refResultContainer.clientWidth;
-            canvas.height = this.refResultContainer.clientHeight;
-            this.clearContainer();
-            this.game.initialise(canvas);
-
-            if (this.props.properties.start) {
-                this.game.initialise(canvas);
-                this.game.stop();
-                this.game.start();
-            } else {
-                this.createGame(this.props.properties);
-            }
-            
-            
-        }
+        window.addEventListener('resize', this.onResize, false);
 
         var container = document.getElementById('starfield');
         this.starfield = new Starfield();
@@ -89,6 +75,26 @@ class SpaceInvaders extends React.Component {
 
     componentWillReceiveProps(props, state) {
         this.createGame(props.properties);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize, false);
+    }
+
+    onResize() {
+        var canvas = document.getElementById("gameCanvas");
+        canvas.width = this.refResultContainer.clientWidth;
+        canvas.height = this.refResultContainer.clientHeight;
+        this.clearContainer();
+        this.game.initialise(canvas);
+
+        if (this.props.properties.start) {
+            this.game.initialise(canvas);
+            this.game.stop();
+            this.game.start();
+        } else {
+            this.createGame(this.props.properties);
+        }
     }
 
     createGame(properties) {
