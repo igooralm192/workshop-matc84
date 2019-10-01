@@ -170,6 +170,8 @@ class SpaceInvaders extends React.Component {
                 invaderInitialVelocity: invader.speed?invader.speed:25,
                 invadersLives: invader.lives?invader.lives:1,
                 invaderAcceleration: invader.acceleration?invader.acceleration:0,
+                invaderFiles: 10,
+                invaderRanks: 2,
                 bombColor: invader.bombColor?invader.bombColor:'#ff3333',
                 bombRate: invader.bombRate?invader.bombRate:0.05,
 
@@ -183,6 +185,7 @@ class SpaceInvaders extends React.Component {
                 levelDifficultyMultiplier: gameConfig.difficultyMultiplier?gameConfig.difficultyMultiplier:0.2,
                 pointsPerInvader: gameConfig.pointsPerInvader?gameConfig.pointsPerInvader:50
             })
+            console.log(game)
             game.start();
             
         }

@@ -434,6 +434,8 @@ function PlayState(config, level) {
     this.invaders = [];
     this.rockets = [];
     this.bombs = [];
+
+    console.log(this)
 }
 
 PlayState.prototype.enter = function(game) {
@@ -471,11 +473,11 @@ PlayState.prototype.enter = function(game) {
     
     
     var rank = 0
-    var amount = this.config.invadersAmount
+    var amount = game.config.invadersAmount
     var files = 20
     var maxFile = 10
     var invaders = [];
-                
+    
     for(var file = 0; file < amount; file++) {
         if (file%maxFile == 0) {
             rank++;
@@ -619,7 +621,7 @@ PlayState.prototype.update = function(game, dt) {
 
                 if (invader.lives <= 0) {
                     bang = true;
-                    game.score += this.config.pointsPerInvader;
+                    game.score += game.config.pointsPerInvader;
                 }
                 break;
             }
@@ -709,7 +711,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     }
 
     //  Draw bombs.
-    ctx.fillStyle = this.config.bombColor;
+    ctx.fillStyle = game.config.bombColor;
     for(var i=0; i<this.bombs.length; i++) {
         var bomb = this.bombs[i];
         ctx.fillRect(bomb.x - 2, bomb.y - 2, 4, 4);
