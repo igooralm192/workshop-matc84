@@ -9,8 +9,7 @@ const ShapeType = {
 }
 
 class GeometricShape{
-    constructor(type, mesh, parent){
-        this.type = type;
+    constructor(mesh, parent){
         this.mesh = mesh;
         this.parent = parent;
         this.children = new Array();

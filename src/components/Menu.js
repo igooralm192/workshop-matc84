@@ -64,7 +64,7 @@ const styles = () => ({
 
 const xmlItems = new Array();
 XMLChallenges.forEach((challenge, i) => {
-	xmlItems.push({ name: challenge.title, url: challenge.path });
+	xmlItems.push({ name: [`${i + 1}. `+ challenge.title], url: challenge.path });
 });
 
 function Menu(props) {

@@ -27,9 +27,13 @@ const challengesJSON = [
 
 const themeColors = {
 	"/": "#3f51b5",
-	"/xml/introduction": "#F29B20",
+	"/xml": "#F29B20",
 	"/json/spaceinvaders": "#a573bd"
 }
+
+XMLChallenges.forEach((challenge, i) => {
+	themeColors[challenge.path] = themeColors["/xml"];
+});
 
 class Gamer {
 	constructor() { } 

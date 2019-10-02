@@ -37,9 +37,14 @@ class SceneManager {
 	
 	CreateSceneElement(sceneElement, parent) {
 		let attributes = xmlparser.getSceneElementAttributes(sceneElement);
+		let shapeType;
 		let mesh;
 		
-		if(sceneElement.type == ShapeType.RECT) {
+		if(sceneElement.type == SceneElement.BACKGROUND) {
+			this.SetBackground(attributes) ;
+			return;
+		}
+		else if(sceneElement.type == ShapeType.RECT) {
 			mesh = ShapeFactory.addRect( attributes );
 		}
 		else if(sceneElement.type == ShapeType.CIRCLE) {
@@ -51,11 +56,8 @@ class SceneManager {
 		else if(sceneElement.type == ShapeType.ELLIPSE) { 
 			mesh = ShapeFactory.addEllipse(attributes);
 		}
-		else if(sceneElement.type == SceneElement.BACKGROUND) {
-			this.SetBackground(attributes) ;
-		}
 		
-		let shape = new GeometricShape(ShapeType.RECT, mesh, parent);
+		let shape = new GeometricShape(mesh, parent);
 		let transformations = xmlparser.getTransformations(sceneElement);
 
 		transformations.forEach( (transformation, index) => {

@@ -31,7 +31,9 @@ class MainThree extends React.Component{
 		this.camera.position.z = 1000;
 
         this.scene = new THREE.Scene();
+		let loader = new THREE.TextureLoader();
         this.scene.background = new THREE.Color(BACKGROUND_COLOR);
+		
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
