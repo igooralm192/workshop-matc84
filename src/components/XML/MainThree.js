@@ -5,13 +5,13 @@ import * as THREE from 'three'
 import SceneManager from './SceneManager'
 
 const styles = theme => ({});
+const BACKGROUND_COLOR = 'white'
 
 let sceneManager;
 
 class MainThree extends React.Component{
     constructor(){
         super();
-		this.backgroundColor = 'white';
         this.el = React.createRef();
 		this.windowResizeHandler = () => { this.onWindowResize() }
     }
@@ -21,17 +21,17 @@ class MainThree extends React.Component{
         // this.camera.position.z = 1;
 
 		this.camera = new THREE.OrthographicCamera(
-			this.el.current.offsetWidth / -2, 
-			this.el.current.offsetWidth /  2,
-			this.el.current.offsetHeight / 2,
-			this.el.current.offsetHeight /  -2);
+			this.el.current.offsetWidth  / -2, 
+			this.el.current.offsetWidth  /  2,
+			this.el.current.offsetHeight /  2,
+			this.el.current.offsetHeight / -2);
 
 		// Moves the camera far away, so the most object with a 
 		// positive z coordinate will be visible
 		this.camera.position.z = 1000;
 
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(this.backgroundColor);
+        this.scene.background = new THREE.Color(BACKGROUND_COLOR);
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
@@ -73,4 +73,4 @@ class MainThree extends React.Component{
 	} 
 }
 
-export { MainThree, sceneManager }
+export { MainThree, sceneManager, BACKGROUND_COLOR }

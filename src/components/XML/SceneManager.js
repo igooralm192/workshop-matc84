@@ -1,5 +1,6 @@
-import { xmlparser } from './XMLParser' 
 import ShapeFactory from './ShapeFactory'
+import { BACKGROUND_COLOR          } from './MainThree'
+import { xmlparser                 } from './XMLParser' 
 import { GeometricShape, ShapeType } from './GeometricShape'
 import * as THREE from 'three'
 
@@ -20,6 +21,7 @@ class SceneManager {
 
 	ClearScene() { 
 		this.shapes = [];
+		this.scene.background = new THREE.Color(BACKGROUND_COLOR);
 
 		while(this.scene.length > 0) {
 			this.scene.children[0].geometry.dispose();
@@ -45,11 +47,13 @@ class SceneManager {
 		
 		let shape = new GeometricShape(ShapeType.RECT, mesh, parent);
 		let transformations = xmlparser.getTransformations(sceneElement);
+
 		transformations.forEach( (transformation, index) => {
 			shape.addTransformation(transformation) 
 		});
 
 		this.shapes.push(shape);
+
 		if(parent === null) this.scene.add(mesh);
 		else parent.addChild(shape);
 

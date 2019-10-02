@@ -16,6 +16,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <xs:attribute name="x" type="xs:decimal" />
 <xs:attribute name="y" type="xs:decimal" />
 <xs:attribute name="z" type="xs:decimal" />
+<xs:attribute name="b" type="xs:decimal" />
 <xs:attribute name="w" type="xs:decimal" />
 <xs:attribute name="h" type="xs:decimal" />
 <xs:attribute name="r" type="xs:decimal" />
@@ -83,6 +84,20 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 		<xs:attribute ref="y" use="optional" />
 		<xs:attribute ref="z" use="optional" />
 		<xs:attribute ref="w" use="required" />
+		<xs:attribute ref="h" use="required" />
+		<xs:attribute ref="color"  use="optional" />
+	</xs:complexType>
+</xs:element>
+
+</xs:element> <xs:element name="triangle"> <xs:complexType>
+		<xs:all>
+			<xs:element ref="children"        minOccurs="0" maxOccurs="1"/>	
+			<xs:element ref="transformations" minOccurs="0" maxOccurs="1"/>
+		</xs:all>
+		<xs:attribute ref="x" use="optional" />
+		<xs:attribute ref="y" use="optional" />
+		<xs:attribute ref="z" use="optional" />
+		<xs:attribute ref="b" use="required" />
 		<xs:attribute ref="h" use="required" />
 		<xs:attribute ref="color"  use="optional" />
 	</xs:complexType>

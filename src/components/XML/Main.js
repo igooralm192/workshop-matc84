@@ -20,7 +20,7 @@ class Main extends React.Component {
 		}
 	}
 
-	setStep(newValue) { this.step = newValue; }
+	setStep(newValue) { this.setState({ step: newValue }); } 
 
     onEditorChange = (value) => { 
 		const { editorStatus, parsingErrors } = this.state;
