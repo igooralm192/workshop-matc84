@@ -12,7 +12,7 @@ class SceneManager {
 	
 	BuildScene(sceneDescriptionObj) {
 		this.ClearScene();
-
+		
 		sceneDescriptionObj.forEach( (element, index) => {
 			this.CreateShape(element, null);
 		});

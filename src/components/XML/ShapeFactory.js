@@ -53,6 +53,29 @@ class ShapeFactory{
         return ellipse;
     }
 
+    static addTriangle(attributes){
+        let xPoint = this.getOptionalAttribute(attributes, 'x', 0);
+        let yPoint = this.getOptionalAttribute(attributes, 'y', 0);
+        let zPoint = this.getOptionalAttribute(attributes, 'z', 0);
+        let materialColor = this.getOptionalAttribute(attributes, 'color', defaultForegroundColor);
+
+        let vertA = new THREE.Vector3(xPoint - (attributes.w/2), yPoint - (attributes.h/2), zPoint);
+        let vertB = new THREE.Vector3(xPoint + (attributes.w/2), yPoint - (attributes.h/2), zPoint);
+        let vertC = new THREE.Vector3(xPoint, yPoint + (attributes.h/2), zPoint);
+
+        let geometry = new THREE.Geometry();
+        geometry.vertices.push(vertA);
+        geometry.vertices.push(vertB);
+        geometry.vertices.push(vertC);
+
+        geometry.faces.push(new THREE.Face3(0, 1, 2));
+        let material = new THREE.MeshBasicMaterial( { color: materialColor, side: THREE.DoubleSide} );
+
+        let mesh = new THREE.Mesh(geometry, material);
+
+        return mesh;
+    }
+
 	static getOptionalAttribute(attributes, attributeName, defaultValue) {
 		return attributes.hasOwnProperty(attributeName) ? attributes[attributeName] : defaultValue;
 	}
