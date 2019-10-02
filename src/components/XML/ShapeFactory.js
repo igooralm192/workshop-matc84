@@ -59,9 +59,9 @@ class ShapeFactory{
         let zPoint = this.getOptionalAttribute(attributes, 'z', 0);
         let materialColor = this.getOptionalAttribute(attributes, 'color', defaultForegroundColor);
 
-        let vertA = new THREE.Vector3(xPoint - (attributes.w/2), yPoint - (attributes.h/2), zPoint);
-        let vertB = new THREE.Vector3(xPoint + (attributes.w/2), yPoint - (attributes.h/2), zPoint);
-        let vertC = new THREE.Vector3(xPoint, yPoint + (attributes.h/2), zPoint);
+        let vertA = new THREE.Vector3(xPoint - (attributes.b / 2), yPoint - (attributes.h / 2), zPoint);
+        let vertB = new THREE.Vector3((xPoint * 1.0) + (attributes.b / 2), yPoint - (attributes.h / 2), zPoint);
+        let vertC = new THREE.Vector3(xPoint, (yPoint * 1.0) + (attributes.h / 2), zPoint);
 
         let geometry = new THREE.Geometry();
         geometry.vertices.push(vertA);

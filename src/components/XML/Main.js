@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles'
 import { xmlparser, ParseErrorType } from './XMLParser'
 import { MainThree, sceneManager } from './MainThree'
 import Editor from '../Editor'
-import xmlChallengeSteps from './ChallengeSteps'
 import Challenge from '../Challenge'
 import '../../assets/css/three.css'
 
@@ -14,16 +13,16 @@ class Main extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
+			currentChallenge: 0,
 			step: 0,
 			parsingErrors: [],
 			editorStatus: ""
 		}
 	}
 
-	setStep(newValue) { this.setState({ step: newValue }); } 
-
     onEditorChange = (value) => { 
 		const { editorStatus, parsingErrors } = this.state;
+		const { xmlChallengeSteps } = this.props;
 		this.setState({ editorStatus: value } );
 		const sceneDescription = xmlparser.parseXML(value); 
 
@@ -77,27 +76,29 @@ class Main extends React.Component {
 	}
 
 	render() { 
-		const { step, editorStatus, parsingErrors } = this.state;
+		const { step, editorStatus, parsingErrors, currentChallenge } = this.state;
+		const { xmlChallengeSteps } = this.props;
+
 
 		return ( 
 			<div style = { { height:"100%" } }>
 				<Challenge editor = {
 					<Editor 
 						mode= "xml"
-						value = {editorStatus}
-						onChange = {this.onEditorChange} 
+						value = { editorStatus }
+						onChange = { this.onEditorChange } 
 						annotations = { parsingErrors }
 					/>
 					}
 
-					title        = { xmlChallengeSteps[step].title }
-					subtitle     = { xmlChallengeSteps[step].subtitle }
+					title        = { xmlChallengeSteps[step].title       }
+					subtitle     = { xmlChallengeSteps[step].subtitle    }
 					description  = { xmlChallengeSteps[step].description }
-					result       = { <MainThree/> }
+					result       = { <MainThree />   }
 					steps        = { xmlChallengeSteps } 
 					activeStep   = { step }
-					previousStep = { () => this.setStep(Math.max(0, step - 1))}
-					nextStep     = { () => this.setStep(Math.min(xmlChallengeSteps.length-1, step+1))}
+					previousStep = { () => this.setState({ step: Math.max(0, step - 1) })} 
+					nextStep     = { () => this.setState({ step: Math.min(step + 1, xmlChallengeSteps.length - 1) })} 
 					expectedResult = { <MainThree /> }
 				/>
 						

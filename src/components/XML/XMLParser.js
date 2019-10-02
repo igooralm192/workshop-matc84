@@ -12,10 +12,12 @@ let ParseErrorType = {
 	MISSING_ROOT_ELEMENT: 3
 };
 
-let availableShapes = [
+let sceneElements = [
 	"rect", 
 	"circle",
-	"ellipse"
+	"ellipse",
+	"triangle",
+	"background"
 ];
 
 xmlparser.parseXML = (xmlString) => { 
@@ -63,18 +65,18 @@ xmlparser.getSceneElementAttributes = (sceneElement) => {
 xmlparser.getSceneElements = (dataRoot) => {
 	let shapes = [];
 	
-	for(let availableShape of availableShapes) {
-		if(dataRoot.hasOwnProperty(availableShape)) 
+	for(let sceneElement of sceneElements) {
+		if(dataRoot.hasOwnProperty(sceneElement)) 
 		{
-			let shapeDescription = dataRoot[availableShape];
+			let shapeDescription = dataRoot[sceneElement];
 			if(Array.isArray(shapeDescription)) {
 				shapeDescription.forEach((shape, index) => {
-					shape.type = availableShape;
+					shape.type = sceneElement;
 					shapes.push(shape);
 				})
 			}
 			else { 
-				shapeDescription.type = availableShape;
+				shapeDescription.type = sceneElement;
 				shapes.push(shapeDescription);
 			}
 		}

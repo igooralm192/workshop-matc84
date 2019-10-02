@@ -4,6 +4,10 @@ import { xmlparser                 } from './XMLParser'
 import { GeometricShape, ShapeType } from './GeometricShape'
 import * as THREE from 'three'
 
+const SceneElement = {
+	BACKGROUND: "background" 
+}
+
 class SceneManager {
 	constructor(threeScene, renderer) { 
 		this.scene = threeScene;
@@ -13,9 +17,9 @@ class SceneManager {
 	
 	BuildScene(sceneDescriptionObj) {
 		this.ClearScene();
-		
+
 		sceneDescriptionObj.forEach( (element, index) => {
-			this.CreateShape(element, null);
+			this.CreateSceneElement(element, null);
 		});
 	}
 
@@ -31,7 +35,7 @@ class SceneManager {
 		this.rendererRef.renderLists.dispose();
 	}
 	
-	CreateShape(sceneElement, parent) {
+	CreateSceneElement(sceneElement, parent) {
 		let attributes = xmlparser.getSceneElementAttributes(sceneElement);
 		let mesh;
 		
@@ -41,8 +45,14 @@ class SceneManager {
 		else if(sceneElement.type == ShapeType.CIRCLE) {
 			mesh = ShapeFactory.addCircle(attributes);
 		}
-		else {
+		else if(sceneElement.type == ShapeType.TRIANGLE) {
+			mesh = ShapeFactory.addTriangle(attributes);
+		}
+		else if(sceneElement.type == ShapeType.ELLIPSE) { 
 			mesh = ShapeFactory.addEllipse(attributes);
+		}
+		else if(sceneElement.type == SceneElement.BACKGROUND) {
+			this.SetBackground(attributes) ;
 		}
 		
 		let shape = new GeometricShape(ShapeType.RECT, mesh, parent);
@@ -59,9 +69,12 @@ class SceneManager {
 
 		let children = xmlparser.getSceneElementChildren(sceneElement);
 
-		children.forEach((element, index) => this.CreateShape(element, shape));
+		children.forEach((element, index) => this.CreateSceneElement(element, shape));
 	}
 
+	SetBackground(attributes) {
+		this.scene.background = new THREE.Color(attributes.color);
+	}
 	Update() {
 		this.shapes.forEach( (element, index) => {
 			element.update(); 

@@ -14,10 +14,12 @@ import Content from './Content';
 import Introduction from './Introduction';
 import MainXML from './XML/Main';
 import MainSpaceInvaders from './JSON/SpaceInvaders/Main';
+import XMLChallenges from './XML/Challenges'
 
-const challengesXML = [
-	{path: '/xml/threejs', component: MainXML},
-]
+let challengesXML = new Array();
+XMLChallenges.forEach( (challenge, i) => {
+	challengesXML.push( { path: challenge.path , component: <MainXML xmlChallengeSteps={ challenge.steps } />}) 
+});
 
 const challengesJSON = [
 	{path: '/json/spaceinvaders', component: MainSpaceInvaders}
@@ -25,8 +27,12 @@ const challengesJSON = [
 
 const themeColors = {
 	"/": "#3f51b5",
-	"/xml/threejs": "#F29B20",
+	"/xml/introduction": "#F29B20",
 	"/json/spaceinvaders": "#a573bd"
+}
+
+class Gamer {
+	constructor() { } 
 }
 
 function App(props) {
@@ -45,7 +51,7 @@ function App(props) {
 						
 						{
 							challengesXML.map((challenge,i) => (
-								<Route key={i} path={challenge.path} component={challenge.component}/>
+								<Route key={i} path={challenge.path} render={ () => challenge.component } />
 							))
 						}
 
