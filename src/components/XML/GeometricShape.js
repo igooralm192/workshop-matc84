@@ -4,7 +4,8 @@ import ShapeFactory from './ShapeFactory'
 const ShapeType = {
     RECT: 'rect',
     CIRCLE: 'circle',
-    ELLIPSE: 'ellipse'
+    ELLIPSE: 'ellipse',
+    TRIANGLE: 'triangle'
 }
 
 class GeometricShape{

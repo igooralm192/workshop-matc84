@@ -8,6 +8,8 @@ class SpaceInvaders extends React.Component {
 
         this.game = null;
         this.starfield = null;
+
+        this.onResize = this.onResize.bind(this);
     }
 
     componentDidMount() {
@@ -18,23 +20,7 @@ class SpaceInvaders extends React.Component {
         canvas.width = this.refResultContainer.clientWidth;
         canvas.height = this.refResultContainer.clientHeight;
 
-        window.onresize = () => {
-            var canvas = document.getElementById("gameCanvas");
-            canvas.width = this.refResultContainer.clientWidth;
-            canvas.height = this.refResultContainer.clientHeight;
-            this.clearContainer();
-            this.game.initialise(canvas);
-
-            if (this.props.properties.start) {
-                this.game.initialise(canvas);
-                this.game.stop();
-                this.game.start();
-            } else {
-                this.createGame(this.props.properties);
-            }
-            
-            
-        }
+        window.addEventListener('resize', this.onResize, false);
 
         var container = document.getElementById('starfield');
         this.starfield = new Starfield();
@@ -89,6 +75,26 @@ class SpaceInvaders extends React.Component {
 
     componentWillReceiveProps(props, state) {
         this.createGame(props.properties);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize, false);
+    }
+
+    onResize() {
+        var canvas = document.getElementById("gameCanvas");
+        canvas.width = this.refResultContainer.clientWidth;
+        canvas.height = this.refResultContainer.clientHeight;
+        this.clearContainer();
+        this.game.initialise(canvas);
+
+        if (this.props.properties.start) {
+            this.game.initialise(canvas);
+            this.game.stop();
+            this.game.start();
+        } else {
+            this.createGame(this.props.properties);
+        }
     }
 
     createGame(properties) {
@@ -164,6 +170,8 @@ class SpaceInvaders extends React.Component {
                 invaderInitialVelocity: invader.speed?invader.speed:25,
                 invadersLives: invader.lives?invader.lives:1,
                 invaderAcceleration: invader.acceleration?invader.acceleration:0,
+                invaderFiles: 10,
+                invaderRanks: 2,
                 bombColor: invader.bombColor?invader.bombColor:'#ff3333',
                 bombRate: invader.bombRate?invader.bombRate:0.05,
 
@@ -177,6 +185,7 @@ class SpaceInvaders extends React.Component {
                 levelDifficultyMultiplier: gameConfig.difficultyMultiplier?gameConfig.difficultyMultiplier:0.2,
                 pointsPerInvader: gameConfig.pointsPerInvader?gameConfig.pointsPerInvader:50
             })
+            console.log(game)
             game.start();
             
         }
