@@ -22,18 +22,20 @@ const styles = theme => ({
 	toolbar: theme.mixins.toolbar,
 	header: {
 		zIndex: theme.zIndex.drawer + 1,
-		backgroundColor: '#349ad8'
+		backgroundColor: '#3f51b5'
     },
 	headerTitle: {width: '100%', fontFamily: 'Ubuntu'}
 });
 
 function Header(props) {
+    console.log(window.history)
 	const { classes } = props;
 
     return (
         <AppBar
             position="relative"
             className={classes.header}
+            style={{backgroundColor: window.themeColor}}
         >
             <Toolbar>
 				<IconButton

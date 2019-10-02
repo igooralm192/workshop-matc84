@@ -23,8 +23,16 @@ const challengesJSON = [
 	{path: '/json/spaceinvaders', component: MainSpaceInvaders}
 ]
 
+const themeColors = {
+	"/": "#3f51b5",
+	"/xml/threejs": "#F29B20",
+	"/json/spaceinvaders": "#a573bd"
+}
+
 function App(props) {
 	const [menuOpen, setMenuOpen] = useState(false);
+
+	window.themeColor = themeColors[window.location.pathname]
 
 	return (
 		<Router>

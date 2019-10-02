@@ -1,6 +1,5 @@
 import validator from './SceneDescription'
-import transformationObjects from './TransformationParser'
-import { TransformationType } from './ThreeTransformations'
+import { transforms, TransformationType } from './ThreeTransformations'
 
 let xmltojson = require('xml-js');
 
@@ -9,7 +8,8 @@ let xmlparser = {};
 let ParseErrorType = {
 	NO_ERROR: 0,
 	XML_ILL_FORMED: 1,
-	INVALID_FORMAT: 2
+	INVALID_FORMAT: 2,
+	MISSING_ROOT_ELEMENT: 3
 };
 
 let availableShapes = [
@@ -45,17 +45,24 @@ xmlparser.parseXML = (xmlString) => {
 		errorType: ParseErrorType.NO_ERROR,
 		data: JSON.parse(json)
 	};
+	
+	if(!obj.data.hasOwnProperty('data')) {
+		return {
+			errorType: ParseErrorType.MISSING_ROOT_ELEMENT,
+			data: "Missing root element."
+		};
+	}
 
 	return obj;
 }
 
-xmlparser.getSceneElementAttributes = (shapeObject) => {
-	return shapeObject._attributes; 
+xmlparser.getSceneElementAttributes = (sceneElement) => {
+	return sceneElement._attributes; 
 }
 
 xmlparser.getSceneElements = (dataRoot) => {
 	let shapes = [];
-
+	
 	for(let availableShape of availableShapes) {
 		if(dataRoot.hasOwnProperty(availableShape)) 
 		{
@@ -76,28 +83,31 @@ xmlparser.getSceneElements = (dataRoot) => {
 	return shapes;
 }
 
-xmlparser.getChildren = (shapeObject) => {
+xmlparser.getSceneElementChildren = (sceneElement) => {
 
-	if(shapeObject.hasOwnProperty('children'))	
+	if(sceneElement.hasOwnProperty('children'))	
 	{
-		return xmlparser.getSceneElements(shapeObject.children);
+		return xmlparser.getSceneElements(sceneElement.children);
 	}
 	
 	return [];
 }
 
-xmlparser.getTransformations = (shapeObject) => {
+xmlparser.getTransformations = (sceneElement) => {
 	let transformations = [];
-	if(shapeObject.hasOwnProperty('transformations')) {
-		let transformationsRoot = shapeObject.transformations;
+	if(sceneElement.hasOwnProperty('transformations')) {
+		let transformationsRoot = sceneElement.transformations;
 
 		for(let ttype in TransformationType) {
 			if(transformationsRoot.hasOwnProperty(TransformationType[ttype]))
 			{ 
 				let tobject = transformationsRoot[TransformationType[ttype]];
-				let transformation = transformationObjects[TransformationType[ttype]](
-					tobject._attributes);	 
-
+			
+				let transformation = {
+					data: tobject._attributes, 
+					proc: transforms[TransformationType[ttype]],
+					call: function(shape) { this.proc(shape, this.data) }
+				};
 				transformations.push(transformation);
 			}
 		}

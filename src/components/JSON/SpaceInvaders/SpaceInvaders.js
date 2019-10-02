@@ -8,6 +8,8 @@ class SpaceInvaders extends React.Component {
 
         this.game = null;
         this.starfield = null;
+
+        this.onResize = this.onResize.bind(this);
     }
 
     componentDidMount() {
@@ -18,16 +20,7 @@ class SpaceInvaders extends React.Component {
         canvas.width = this.refResultContainer.clientWidth;
         canvas.height = this.refResultContainer.clientHeight;
 
-        window.onresize = () => {
-            var canvas = document.getElementById("gameCanvas");
-            canvas.width = this.refResultContainer.clientWidth;
-            canvas.height = this.refResultContainer.clientHeight;
-            //this.clearContainer();
-            //this.game.initialise(canvas);
-            //this.game.stop();
-            //this.game.start();
-            //this.drawInvaders(this.props.properties.invader, this.game)
-        }
+        window.addEventListener('resize', this.onResize, false);
 
         var container = document.getElementById('starfield');
         this.starfield = new Starfield();
@@ -50,13 +43,13 @@ class SpaceInvaders extends React.Component {
             if(keycode == 37 || keycode == 39 || keycode == 32) {
                 e.preventDefault();
             }
-            console.log('down',keycode)
+            //console.log('down',keycode)
             this.game.keyDown(keycode);
 
         });
         this.refResultContainer.addEventListener("keyup", (e) => {
             var keycode = e.which || window.event.keycode;
-            console.log('up',keycode)
+            //console.log('up',keycode)
             this.game.keyUp(keycode);
         });
 
@@ -84,14 +77,36 @@ class SpaceInvaders extends React.Component {
         this.createGame(props.properties);
     }
 
-    createGame({ background, invader, ship, game, end }) {
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize, false);
+    }
+
+    onResize() {
+        var canvas = document.getElementById("gameCanvas");
+        canvas.width = this.refResultContainer.clientWidth;
+        canvas.height = this.refResultContainer.clientHeight;
+        this.clearContainer();
+        this.game.initialise(canvas);
+
+        if (this.props.properties.start) {
+            this.game.initialise(canvas);
+            this.game.stop();
+            this.game.start();
+        } else {
+            this.createGame(this.props.properties);
+        }
+    }
+
+    createGame(properties) {
+        console.log(properties)
+        let { background, invader, ship, game, start } = properties
         this.clearContainer();
         this.drawBackground(background, this.starfield);
         this.drawInvaders(invader, this.game);
         this.drawShip(ship, this.game)
         this.configGame(game, this.game)
-        this.startGame(end, this.game, this.starfield)
-        console.log(this.game)
+        this.startGame(start, this.game, this.starfield, properties)
+        //console.log(this.game)
     }
 
     clearContainer() {
@@ -100,6 +115,9 @@ class SpaceInvaders extends React.Component {
 
         let ctxStarfield = this.starfield.canvas.getContext('2d');
         ctxStarfield.clearRect(0, 0, this.starfield.width, this.starfield.height)
+
+        this.starfield.stop();
+        this.game.stop();
     }
 
     drawBackground(data, starfield) {
@@ -111,6 +129,7 @@ class SpaceInvaders extends React.Component {
     
     drawInvaders(data, game) {
         if (data && game) {
+            console.log('eae')
             var invader = new InvaderDraw(data, game)
             invader.enter(game)
             invader.draw(game, game.gameCanvas.getContext("2d"))
@@ -135,12 +154,40 @@ class SpaceInvaders extends React.Component {
         }
     }
     
-    startGame(end, game, starfield) {
-        console.log(game, starfield)
+    startGame(data, game, starfield, properties) {
+        //console.log(game, starfield)
         //  Start the game.
-        if (end && game) {
-            game.start();
+        if (data && game && starfield) {
+            let { background, invader, ship, game: gameConfig } = properties;
+            starfield.enter({
+                color: background.color?background.color:'#000',
+                starsColor: background.starsColor?background.starsColor:'#fff',
+                starsNumber: background.starsNumber?background.starsNumber:100,
+            })
             starfield.start();
+            game.setConfig({
+                invadersAmount: invader.amount?invader.amount:20,
+                invaderInitialVelocity: invader.speed?invader.speed:25,
+                invadersLives: invader.lives?invader.lives:1,
+                invaderAcceleration: invader.acceleration?invader.acceleration:0,
+                invaderFiles: 10,
+                invaderRanks: 2,
+                bombColor: invader.bombColor?invader.bombColor:'#ff3333',
+                bombRate: invader.bombRate?invader.bombRate:0.05,
+
+                shipWidth: ship.width?ship.width:20,
+                shipHeight: ship.height?ship.height:20,
+                shipSpeed: ship.speed?ship.speed:120,
+                rocketVelocity: ship.rocketVelocity?ship.rocketVelocity:120,
+                rocketMaxFireRate: ship.shootRate?ship.shootRate:2,
+
+                gameLives: gameConfig.lives?gameConfig.lives:3,
+                levelDifficultyMultiplier: gameConfig.difficultyMultiplier?gameConfig.difficultyMultiplier:0.2,
+                pointsPerInvader: gameConfig.pointsPerInvader?gameConfig.pointsPerInvader:50
+            })
+            console.log(game)
+            game.start();
+            
         }
     }
 

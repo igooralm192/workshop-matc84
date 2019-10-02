@@ -43,37 +43,17 @@ const stylesIcon = () => ({
         fontSize: 14,
     },
     active: {
-        backgroundColor: 'red',
+        backgroundColor: window.themeColor,
     },
     completed: {
-        backgroundColor: 'red',
+        backgroundColor: window.themeColor,
     },
     check: {
         fontSize: 17
     }
 })
 
-const QontoConnector = withStyles({
-    active: {
-      '& $line': {
-        borderColor: '#784af4',
-      },
-    },
-    completed: {
-      '& $line': {
-        borderColor: '#784af4',
-      },
-    },
-    line: {
-      borderColor: '#eaeaf0',
-      borderTopWidth: 3,
-      borderRadius: 1,
-    },
-  })(StepConnector);
-  
-
 function MyStepIcon(props) {
-    console.log(props)
     const { classes, active, completed, icon } = props;
 
     return (

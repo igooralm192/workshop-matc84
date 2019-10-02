@@ -107,6 +107,7 @@ Game.prototype.initialise = function(gameCanvas) {
     this.height = gameCanvas.height;
     this.config.gameWidth = gameCanvas.width/1.5;
     this.config.gameHeight = gameCanvas.height/1.5;
+
     //  Set the state game bounds.
     this.gameBounds = {
         left: gameCanvas.width / 2 - this.config.gameWidth / 2,
@@ -222,7 +223,6 @@ Game.prototype.stop = function Stop() {
 
 //  Inform the game a key is down.
 Game.prototype.keyDown = function(keyCode) {
-    console.log(this.pressedKeys)
     this.pressedKeys[keyCode] = true;
     //  Delegate to the current state too.
     if(this.currentState() && this.currentState().keyDown) {
@@ -401,7 +401,7 @@ InvaderDraw.prototype.enter = function(game) {
 
 InvaderDraw.prototype.draw = function(game, ctx) {
     //  Draw invaders.
-    ctx.fillStyle = '#009900';
+    ctx.fillStyle = '#00BB00';
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x - invader.width/2, invader.y - invader.height/2, invader.width, invader.height);
@@ -434,6 +434,8 @@ function PlayState(config, level) {
     this.invaders = [];
     this.rockets = [];
     this.bombs = [];
+
+    console.log(this)
 }
 
 PlayState.prototype.enter = function(game) {
@@ -471,11 +473,11 @@ PlayState.prototype.enter = function(game) {
     
     
     var rank = 0
-    var amount = this.config.invadersAmount
+    var amount = game.config.invadersAmount
     var files = 20
     var maxFile = 10
     var invaders = [];
-                
+    
     for(var file = 0; file < amount; file++) {
         if (file%maxFile == 0) {
             rank++;
@@ -492,6 +494,7 @@ PlayState.prototype.enter = function(game) {
     
     this.invaders = invaders;
     this.invaderCurrentVelocity = this.invaderInitialVelocity;
+    
     this.invaderVelocity = {x: -this.invaderInitialVelocity, y:0};
     this.invaderNextVelocity = null;
 };
@@ -547,8 +550,10 @@ PlayState.prototype.update = function(game, dt) {
 
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
-        var newx = invader.x + Math.round(this.invaderVelocity.x * dt);
-        var newy = invader.y + Math.round(this.invaderVelocity.y * dt);
+
+        var newx = invader.x + this.invaderVelocity.x * dt;
+        var newy = invader.y + this.invaderVelocity.y * dt;
+
         if(hitLeft == false && newx < game.gameBounds.left) {
             hitLeft = true;
         }
@@ -562,15 +567,15 @@ PlayState.prototype.update = function(game, dt) {
 
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
-        var newx = invader.x + Math.round(this.invaderVelocity.x * dt);
-        var newy = invader.y + Math.round(this.invaderVelocity.y * dt);
+
+        var newx = invader.x + this.invaderVelocity.x * dt;
+        var newy = invader.y + this.invaderVelocity.y * dt;
 
         if(!hitLeft && !hitRight && !hitBottom) {
             invader.x = newx;
             invader.y = newy;
         }
     }
-
     //  Update invader velocities.
     if(this.invadersAreDropping) {
         this.invaderCurrentDropDistance += this.invaderVelocity.y * dt;
@@ -616,7 +621,7 @@ PlayState.prototype.update = function(game, dt) {
 
                 if (invader.lives <= 0) {
                     bang = true;
-                    game.score += this.config.pointsPerInvader;
+                    game.score += game.config.pointsPerInvader;
                 }
                 break;
             }
@@ -699,14 +704,14 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
 
     //  Draw invaders.
-    ctx.fillStyle = '#006600';
+    ctx.fillStyle = '#00BB00';
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x, invader.y, invader.width, invader.height);
     }
 
     //  Draw bombs.
-    ctx.fillStyle = this.config.bombColor;
+    ctx.fillStyle = game.config.bombColor;
     for(var i=0; i<this.bombs.length; i++) {
         var bomb = this.bombs[i];
         ctx.fillRect(bomb.x - 2, bomb.y - 2, 4, 4);
@@ -758,7 +763,6 @@ PlayState.prototype.keyUp = function(game, keyCode) {
 };
 
 PlayState.prototype.fireRocket = function() {
-    console.log('ué')
     //  If we have no last rocket time, or the last rocket time 
     //  is older than the max rocket rate, we can fire.
     if(this.lastRocketTime === null || ((new Date()).valueOf() - this.lastRocketTime) > (1000 / this.rocketMaxFireRate))

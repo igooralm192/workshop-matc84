@@ -1,19 +1,18 @@
 import * as THREE from 'three'
 import ShapeFactory from './ShapeFactory'
 
-const types = {
+const ShapeType = {
     RECT: 'rect',
     CIRCLE: 'circle',
-    ELLIPSE: 'ellipse'
+    ELLIPSE: 'ellipse',
+    TRIANGLE: 'triangle'
 }
 
 class GeometricShape{
     constructor(type, mesh, parent){
         this.type = type;
         this.mesh = mesh;
-        
         this.parent = parent;
-           
         this.children = new Array();
         this.transforms = new Array();
     }
@@ -37,4 +36,4 @@ class GeometricShape{
     }
 }
 
-export default GeometricShape;
+export { GeometricShape, ShapeType };
