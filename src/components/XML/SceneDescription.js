@@ -5,9 +5,12 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <xs:element name="data">
 	<xs:complexType>
 		<xs:choice maxOccurs="unbounded">
-			<xs:element ref="rect" minOccurs="0"/>
-			<xs:element ref="circle" minOccurs="0"/>
-			<xs:element ref="ellipse" minOccurs="0"/>
+			<xs:element ref="rect"     minOccurs="0"/>
+			<xs:element ref="circle"   minOccurs="0"/>
+			<xs:element ref="ellipse"  minOccurs="0"/>
+			<xs:element ref="triangle" minOccurs="0"/>
+			<xs:element ref="background" minOccurs="0"/>
+
 		</xs:choice>
 	</xs:complexType>
 </xs:element>
@@ -16,6 +19,7 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 <xs:attribute name="x" type="xs:decimal" />
 <xs:attribute name="y" type="xs:decimal" />
 <xs:attribute name="z" type="xs:decimal" />
+<xs:attribute name="b" type="xs:decimal" />
 <xs:attribute name="w" type="xs:decimal" />
 <xs:attribute name="h" type="xs:decimal" />
 <xs:attribute name="r" type="xs:decimal" />
@@ -37,10 +41,13 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 			<xs:enumeration value="orange" />
 			<xs:enumeration value="yellow" />
 			<xs:enumeration value="lightyellow" />
-			<xs:enumeration value="blue"   />
-			<xs:enumeration value="lightblue"   />
-			<xs:enumeration value="red"    />
-			<xs:enumeration value="purple" />		
+			<xs:enumeration value="blue"      />
+			<xs:enumeration value="lightblue" />
+			<xs:enumeration value="darkblue"  />
+			<xs:enumeration value="midnightblue"  />
+			<xs:enumeration value="navy"  />
+			<xs:enumeration value="red"       />
+			<xs:enumeration value="purple"    />		
 		</xs:restriction>
 	</xs:simpleType> 
 </xs:attribute>
@@ -73,8 +80,10 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 		<xs:attribute ref="r" use="required" />
 		<xs:attribute ref="color"  use="optional" />
 	</xs:complexType>
+</xs:element> 
 
-</xs:element> <xs:element name="ellipse"> <xs:complexType>
+<xs:element name="ellipse"> 
+	<xs:complexType>
 		<xs:all>
 			<xs:element ref="children"        minOccurs="0" maxOccurs="1"/>	
 			<xs:element ref="transformations" minOccurs="0" maxOccurs="1"/>
@@ -88,13 +97,35 @@ const validator = `<?xml version="1.0" encoding="UTF-8"?>
 	</xs:complexType>
 </xs:element>
 
+<xs:element name="triangle"> <xs:complexType>
+		<xs:all>
+			<xs:element ref="children"        minOccurs="0" maxOccurs="1"/>	
+			<xs:element ref="transformations" minOccurs="0" maxOccurs="1"/>
+		</xs:all>
+		<xs:attribute ref="x" use="optional" />
+		<xs:attribute ref="y" use="optional" />
+		<xs:attribute ref="z" use="optional" />
+		<xs:attribute ref="b" use="required" />
+		<xs:attribute ref="h" use="required" />
+		<xs:attribute ref="color"  use="optional" />
+	</xs:complexType>
+</xs:element>
+
 <xs:element name="children">	
 	<xs:complexType>
 		<xs:choice maxOccurs="unbounded">
 			<xs:element ref="rect" minOccurs="0" />
 			<xs:element ref="circle" minOccurs="0" />
 			<xs:element ref="ellipse" minOccurs="0"/>
+			<xs:element ref="triangle" minOccurs="0"/>
 		</xs:choice>
+	</xs:complexType>
+</xs:element>
+
+<!-- Scene modifiers -->
+<xs:element name="background"> 
+	<xs:complexType>
+		<xs:attribute ref="color" use="required" />
 	</xs:complexType>
 </xs:element>
 

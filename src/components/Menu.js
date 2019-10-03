@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import XMLChallenges from './XML/Challenges' 
 import { Link } from "react-router-dom";
 import { Drawer, Typography, ListItem, List, ListItemText, ListItemIcon, Collapse } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -61,6 +62,11 @@ const styles = () => ({
 	}
 });
 
+const xmlItems = new Array();
+XMLChallenges.forEach((challenge, i) => {
+	xmlItems.push({ name: [`${i + 1}. `+ challenge.title], url: challenge.path });
+});
+
 function Menu(props) {
 	const { classes } = props;
 
@@ -72,7 +78,7 @@ function Menu(props) {
 			title: 'XML',
 			icon: '</>',
 			style: classes.menuItemIconXML,
-			challenges: [{name: 'Three.JS', url: '/xml/threejs'}]
+			challenges: xmlItems 
 		},
 		{
 			title: 'JSON',
@@ -95,8 +101,6 @@ function Menu(props) {
 				<Typography variant="subtitle2" className={classes.menuHeaderSubtitle}>Workshop -  MATC84</Typography>
 				<div className={classes.menuHeaderDivider}></div>
 			</div>
-
-			
 			
             <List disablePadding>
 				{
