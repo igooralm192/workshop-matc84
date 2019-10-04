@@ -35,10 +35,6 @@ XMLChallenges.forEach((challenge, i) => {
 	themeColors[challenge.path] = themeColors["/xml"];
 });
 
-class Gamer {
-	constructor() { } 
-}
-
 function App(props) {
 	const [menuOpen, setMenuOpen] = useState(false);
 

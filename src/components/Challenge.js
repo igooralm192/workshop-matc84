@@ -86,9 +86,6 @@ class Challenge extends React.Component {
                         </div>
                     </Grid>
                 </Grid>
-                
-
-                
             </div>
         );
     }
