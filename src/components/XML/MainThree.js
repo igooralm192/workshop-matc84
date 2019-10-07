@@ -21,7 +21,7 @@ class MainThree extends React.Component{
         // this.camera.position.z = 1;
 
 		this.camera = new THREE.OrthographicCamera(
-			this.el.current.offsetWidth  / -2, 
+		this.el.current.offsetWidth  / -2, 
 			this.el.current.offsetWidth  /  2,
 			this.el.current.offsetHeight /  2,
 			this.el.current.offsetHeight / -2);
@@ -34,7 +34,6 @@ class MainThree extends React.Component{
 		let loader = new THREE.TextureLoader();
         this.scene.background = new THREE.Color(BACKGROUND_COLOR);
 		
-
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
 		
@@ -54,7 +53,6 @@ class MainThree extends React.Component{
     }
 	
 	onWindowResize() {
-		console.log("resizing");
 		this.camera.aspect = this.el.current.offsetWidth / this.el.current.offsetHeight;
 		this.camera.updateProjectionMatrix();
 		this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
@@ -65,7 +63,6 @@ class MainThree extends React.Component{
     }
 
 	componentWillUnmount() {
-		console.log("unmounting");
 		window.removeEventListener('resize', this.windowResizeHandler); 
 	}
     render() { 
