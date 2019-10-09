@@ -1,5 +1,5 @@
 export const themeColors = {
-	"/": "#3f51b5",
+	"/": "rgb(52, 154, 216)",
 	"/xml": "#F29B20",
 	"/json/spaceinvaders": "#a573bd"
 }
