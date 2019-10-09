@@ -76,8 +76,7 @@ const challenge5 = {
             description: `Nesse desafio você conheceu a tag <children> (usada para adicionar filhos
                 a formas, fazendo com que recebam as mesmas transformações do pai) e a transformação 
                 translate, que move formas na tela. A tag children é útil para agrupar formas. No
-                próximo desafio você vai fazer refinamentos no código dessa etapa, para isso é necessário
-                que você o tenha disponível. Portanto, copie o código dessa etapa antes de avançar. Até lá!`,
+                próximo desafio você vai fazer refinamentos no código dessa etapa. Até lá!`,
             initProperties: {}
         }                
     ],
