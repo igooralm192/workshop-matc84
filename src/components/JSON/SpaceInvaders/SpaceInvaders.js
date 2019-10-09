@@ -74,7 +74,8 @@ class SpaceInvaders extends React.Component {
     }
 
     componentWillReceiveProps(props, state) {
-        this.createGame(props.properties);
+        console.log(props)
+        if (!props.error) this.createGame(props.properties);
     }
 
     componentWillUnmount() {

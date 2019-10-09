@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { 
 	BrowserRouter as Router, 
@@ -15,30 +15,31 @@ import Introduction from './Introduction';
 import MainXML from './XML/Main';
 import MainSpaceInvaders from './JSON/SpaceInvaders/Main';
 import XMLChallenges from './XML/Challenges'
+import { themeColors } from '../themeColors'
 
-let challengesXML = new Array();
-XMLChallenges.forEach( (challenge, i) => {
-	challengesXML.push( { path: challenge.path , component: <MainXML xmlChallengeSteps={ challenge.steps } />}) 
-});
+let challengesXML = XMLChallenges.map((challenge, i) => ({ 
+	path: challenge.path , component: <MainXML xmlChallengeSteps={ challenge.steps } />
+}))
 
 const challengesJSON = [
 	{path: '/json/spaceinvaders', component: MainSpaceInvaders}
 ]
 
-const themeColors = {
-	"/": "#3f51b5",
-	"/xml": "#F29B20",
-	"/json/spaceinvaders": "#a573bd"
-}
-
 XMLChallenges.forEach((challenge, i) => {
 	themeColors[challenge.path] = themeColors["/xml"];
 });
 
+
+
 function App(props) {
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [pathTheme, setPathTheme] = useState(window.location.pathname)
 
-	window.themeColor = themeColors[window.location.pathname]
+	window.addEventListener('changeTheme', (e) => {
+		setPathTheme(e.detail.pathTheme)
+	})
+
+	window.themeColor = themeColors[pathTheme]
 
 	return (
 		<Router>
@@ -47,7 +48,7 @@ function App(props) {
 				<Menu menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)}/>
 				<Content>
 					<Switch>
-						<Route path="/" exact component={Introduction}/>
+						<Route path="/" exact render={() => <Introduction closeMenu={() => setMenuOpen(false)}/>}/>
 						
 						{
 							challengesXML.map((challenge,i) => (
