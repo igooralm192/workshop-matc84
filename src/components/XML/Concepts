@@ -1,0 +1,73 @@
+** Concepts
+
+* Root *
+
+* Shapes
+    Rect *
+    Circle *
+    Triangle
+    Ellipse *
+
+* Background
+    Color *
+
+* Transformations
+    Position *
+    Size *
+    Rotate *
+    Tilt *
+    Translate *
+    Orbit *
+
+* Overllapping *
+* Masking *
+
+* Children *
+
+----------------------------------------------
+
+1st challenge - Red rect corner of the screen
+1. root node
+2. Rect (width and height)
+3. Move the rect
+4. Change color of the rect
+
+2nd challenge - Brazilian flag
+1. Main rect
+2. Middle rect, tilt (transformations, tilt)
+3. Circle
+4. Stripe, above everything (Overlapping)
+
+3rd challenge - Shaded apple (ellipses)
+1. Background color
+2. Red circle, translated right
+3. Red cricle, translated left
+4. Rect, translated up
+5. Ellipse (shadow) translated down
+
+4th challenge - Glasses
+
+5th challenge - Sunny day
+1. Circle, color yellow
+2. Background color
+3. Three circles (clouds) (Overlapping)
+4. Adding Children (Children)
+5. Translating
+
+Let them do it: night sky
+
+
+6th challenge - Earth orbit
+1. Add sun
+2. Add the earth as a child of sun
+3. Add the moon as the child of earth
+4. Make the earth orbit
+5. Make the earth rotate
+
+Let them do it: Solar system
+Let them do it: Loading animation
+
+4th challenge - Pacman
+1. Yello circle
+2. Black triangle (masking)
+3. White cirlce
