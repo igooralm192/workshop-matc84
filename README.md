@@ -12,9 +12,9 @@
 Trabalho da disciplina MATC84 2019.2. Este projeto conta com alguns desafios de temáticas diferentes a fim de servir como aprendizado para iniciantes nas linguagens XML e JSON.
 
 ### Desafios XML
-* ArtsyXML: 
+* __ArtsyXML__: 
 O desafio consiste em criar figuras utilizando o ArtsyXML, uma ferramenta desenvolvida pela equipe que usa XML para criar formas
-e animações simples.
+e animações simples. O objetivo é se familiarizar com a sintaxe e estrutura do XML.
 
 ### Desafios JSON
 * __Space Invaders__: 
