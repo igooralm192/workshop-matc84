@@ -7,9 +7,9 @@ import SceneManager from './SceneManager'
 const styles = theme => ({});
 const BACKGROUND_COLOR = 'white'
 
-let sceneManager;
+let resultSceneManager;
 
-class MainThree extends React.Component{
+class MainThreeResult extends React.Component{
     constructor(){
         super();
         this.el = React.createRef();
@@ -36,10 +36,11 @@ class MainThree extends React.Component{
 		
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
+
 		
         this.el.current.appendChild(this.renderer.domElement);
         this.renderer.render(this.scene, this.camera);
-		sceneManager = new SceneManager(this.scene, this.renderer);
+		resultSceneManager = new SceneManager(this.scene, this.renderer);
 
 		window.addEventListener('resize', this.windowResizeHandler, false);
 		
@@ -47,7 +48,7 @@ class MainThree extends React.Component{
     }
 
     animate() {
-		sceneManager.Update();
+		resultSceneManager.Update();
         requestAnimationFrame( () => this.animate() );
 		this.renderer.clear();
         this.renderer.render(this.scene, this.camera);
@@ -68,9 +69,9 @@ class MainThree extends React.Component{
 	}
     render() { 
 		return(
-			<div className={clsx('split', 'right') } ref={this.el}> </div>
+			<div /*className={clsx('split', 'right') }*/ ref={this.el}> </div>
 		)
 	} 
 }
 
-export { MainThree, sceneManager, BACKGROUND_COLOR }
+export { MainThreeResult, resultSceneManager, BACKGROUND_COLOR }
