@@ -34,7 +34,7 @@ const challenge1 = {
             subtitle: 'Maior controle artístico',
             description: `É possível controlar a posição das formas dentro do quadro!
                 Os atributos x e y definem a posição do centro da sua figura.\n Pense 
-                no quadro como o plano cartesiano, com a origem (0, 0) posicionada no centro.
+                no quadro como o plano cartesiano, com a origem (0, 0, 0) posicionada no centro.
                 Para posicionar o seu retângulo no canto direito, adicione os atributos x: 350, y: -170. A tag rect.`,
             initProperties: {} 
         },
