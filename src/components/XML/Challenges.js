@@ -1,58 +1,33 @@
+import challenge1 from './challenges/challenge1'
+import challenge2 from './challenges/challenge2'
+import challenge3 from './challenges/challenge3'
+import challenge4 from './challenges/challenge4'
+import challenge5 from './challenges/challenge5'
+import challenge6 from './challenges/challenge6'
+import challenge7 from './challenges/challenge7'
 const challengeTitle = 'XML Challenge';
 
-const XMLChallenges = [
-{
-	title: "Introdução",
-	steps: [ 
-		{ 
-			title: challengeTitle, subtitle: 'Tudo tem um início', description: `Crie uma tag "data", sem nenhum atributo. Essa será a tag raiz.
-				Quando terminar, clique em "Próxima" para avançar para próxima etapa.`,
-			initProperties: {} 
-		},
-		{
-			title: challengeTitle,
-			subtitle: 'Sua primeira forma',
-			description: `Ótimo! Agora, dentro da tag "data", crie uma tag rect, com os seguintes atributos:
-				w: 100, h: 100. w e h representam o comprimento (width) e altura (height) do retângulo, respectivamente`,
-			initProperties: {} 
-		},
-		{
-			title: challengeTitle,
-			subtitle: 'Um pouco de cor',
-			description: `Um pouco sem graça, não? Para adicionar um pouco mais de cor, 
-				adicione um atributo "color" dentro da tag rect, com o valor "red", "yellow", "blue", ou outra cor da sua preferência!`,
-			initProperties: {} 
-		},
-		{
-			title: challengeTitle,
-			subtitle: 'Maior controle artístico',
-			description: `É possível controlar a posição das formas dentro do quadro!
-				Os atributos x e y definem a posição do centro da sua figura.\n Pense 
-				no quadro como o plano cartesiano, com a origem (0, 0) posicionada no centro.
-				Para posicionar o seu retângulo no canto direito, adicione os atributos x: 350, y: -170. A tag rect.`,
-			initProperties: {} 
-		},
-	],
-	path: "/xml/introduction"
-},
-{
-	title: "Dia Ensolarado",	
-	steps: [
-		{
-			title: "TESTE1", subtitle: "TESTE2",
-			description: "TESTE3",
-			initProperties: {} 
-		},
-		{
-			title: "TESTE1",
-			subtitle: "TESTE2",
-			description: "TESTE3",
-			initProperties: {} 
-		}
-		],
-	path: "/xml/teste2"
-	
-}
+const challenges = [
+	challenge1,
+	challenge2,
+	challenge3,
+	challenge4,
+	challenge5,
+	challenge6,
+	challenge7
 ];
+
+let XMLChallenges = new Array();
+
+challenges.forEach((challenge) => {
+	console.log(challenge);
+	XMLChallenges.push(
+		{ 
+			title: challenge.title,
+			steps: challenge.steps,
+			path: challenge.path
+		}
+	);
+});
 
 export default XMLChallenges;

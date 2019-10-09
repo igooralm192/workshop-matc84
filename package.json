@@ -1,8 +1,8 @@
 {
   "name": "workshop-matc84",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://igooralm192.github.io/workshop-matc84/",
+  "private": false,
+  "homepage": "http://workshop-matc84.surge.sh/",
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
