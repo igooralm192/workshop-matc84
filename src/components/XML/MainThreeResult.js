@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { withStyles } from '@material-ui/core/styles';
 import * as THREE from 'three'
 import SceneManager from './SceneManager'
+import { xmlparser, ParseErrorType } from './XMLParser'
 
 const styles = theme => ({});
 const BACKGROUND_COLOR = 'white'
@@ -10,8 +11,8 @@ const BACKGROUND_COLOR = 'white'
 let resultSceneManager;
 
 class MainThreeResult extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.el = React.createRef();
 		this.windowResizeHandler = () => { this.onWindowResize() }
     }
@@ -45,7 +46,15 @@ class MainThreeResult extends React.Component{
 		window.addEventListener('resize', this.windowResizeHandler, false);
 		
 		this.animate();
-    }
+	}
+	
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		//super(prevProps, prevState, snapshot);
+		let sceneElementsJson = xmlparser(this.props.expectedResult);
+		this.resultSceneManager.BuildScene(sceneElementsJson);
+		console.log("games");
+		
+	}
 
     animate() {
 		resultSceneManager.Update();

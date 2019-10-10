@@ -73,7 +73,7 @@ class Main extends React.Component {
 		{
 			let shapes = xmlparser.getSceneElements(sceneDescription.data.data);
 			sceneManager.BuildScene(shapes);
-			resultSceneManager.BuildScene(shapes);
+			//resultSceneManager.BuildScene(shapes);
 		}
 	}
 
@@ -101,7 +101,7 @@ class Main extends React.Component {
 					activeStep   = { step }
 					previousStep = { () => this.setState({ step: Math.max(0, step - 1) })} 
 					nextStep     = { () => this.setState({ step: Math.min(step + 1, xmlChallengeSteps.length - 1) })} 
-					expectedResult = { <MainThreeResult /> }
+					expectedResult = { <MainThreeResult expectedResult = {xmlChallengeSteps[step].expectedResult }/> }
 				/>
 						
 			</div>	
