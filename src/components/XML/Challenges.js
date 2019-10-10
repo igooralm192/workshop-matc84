@@ -5,6 +5,8 @@ import challenge4 from './challenges/challenge4'
 import challenge5 from './challenges/challenge5'
 import challenge6 from './challenges/challenge6'
 import challenge7 from './challenges/challenge7'
+import challenge8 from './challenges/challenge8'
+import challenge9 from './challenges/challenge9'
 const challengeTitle = 'XML Challenge';
 
 const challenges = [
@@ -14,7 +16,9 @@ const challenges = [
 	challenge4,
 	challenge5,
 	challenge6,
-	challenge7
+	challenge7,
+	challenge8,
+	challenge9
 ];
 
 let XMLChallenges = new Array();

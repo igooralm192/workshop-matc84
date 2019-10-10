@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { xmlparser, ParseErrorType } from './XMLParser'
 import { MainThree, sceneManager } from './MainThree'
+import {MainThreeResult, resultSceneManager } from './MainThreeResult'
 import Editor from '../Editor'
 import Challenge from '../Challenge'
 import '../../assets/css/three.css'
@@ -72,6 +73,7 @@ class Main extends React.Component {
 		{
 			let shapes = xmlparser.getSceneElements(sceneDescription.data.data);
 			sceneManager.BuildScene(shapes);
+			//resultSceneManager.BuildScene(shapes);
 		}
 	}
 
@@ -99,7 +101,7 @@ class Main extends React.Component {
 					activeStep   = { step }
 					previousStep = { () => this.setState({ step: Math.max(0, step - 1) })} 
 					nextStep     = { () => this.setState({ step: Math.min(step + 1, xmlChallengeSteps.length - 1) })} 
-					expectedResult = { <div>Expected Result</div> }
+					expectedResult = { <MainThreeResult expectedResult = {xmlChallengeSteps[step].expectedResult }/> }
 				/>
 						
 			</div>	
@@ -107,4 +109,4 @@ class Main extends React.Component {
 	}
 }
 
-export default withStyles(styles, {withTheme: true})(Main, sceneManager);
+export default withStyles(styles, {withTheme: true})(Main, sceneManager, resultSceneManager);
