@@ -19,13 +19,13 @@ class MainThreeResult extends React.Component{
 
     init(){
         // this.camera = new THREE.PerspectiveCamera(70, this.el.current.offsetWidth / this.el.current.offsetHeight, 0.01, 1000);
-        // this.camera.position.z = 1;
-
+		// this.camera.position.z = 1;
+		
 		this.camera = new THREE.OrthographicCamera(
-		this.el.current.offsetWidth  / -2, 
-			this.el.current.offsetWidth  /  2,
-			this.el.current.offsetHeight /  2,
-			this.el.current.offsetHeight / -2);
+			808  / -2, 
+			808  /  2,
+			448 /  2,
+			448 / -2);
 
 		// Moves the camera far away, so the most object with a 
 		// positive z coordinate will be visible
@@ -50,10 +50,11 @@ class MainThreeResult extends React.Component{
 	
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		//super(prevProps, prevState, snapshot);
-		let sceneElementsJson = xmlparser(this.props.expectedResult);
-		this.resultSceneManager.BuildScene(sceneElementsJson);
-		console.log("games");
-		
+		let {expectedResult} = this.props;
+		let sceneDescription = xmlparser.parseXML(expectedResult);
+		let shapes = xmlparser.getSceneElements(sceneDescription.data.data);
+		resultSceneManager.BuildScene(shapes);
+			
 	}
 
     animate() {
@@ -65,7 +66,7 @@ class MainThreeResult extends React.Component{
 	
 	onWindowResize() {
 		this.camera.aspect = this.el.current.offsetWidth / this.el.current.offsetHeight;
-		this.camera.updateProjectionMatrix();
+		//this.camera.updateProjectionMatrix();
 		this.renderer.setSize(this.el.current.offsetWidth, this.el.current.offsetHeight);
 	}
 

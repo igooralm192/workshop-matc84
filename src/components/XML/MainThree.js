@@ -19,12 +19,17 @@ class MainThree extends React.Component{
     init(){
         // this.camera = new THREE.PerspectiveCamera(70, this.el.current.offsetWidth / this.el.current.offsetHeight, 0.01, 1000);
         // this.camera.position.z = 1;
-
-		this.camera = new THREE.OrthographicCamera(
-		this.el.current.offsetWidth  / -2, 
+		
+		/*this.camera = new THREE.OrthographicCamera(
+			this.el.current.offsetWidth  / -2, 
 			this.el.current.offsetWidth  /  2,
 			this.el.current.offsetHeight /  2,
-			this.el.current.offsetHeight / -2);
+			this.el.current.offsetHeight / -2);*/
+		this.camera = new THREE.OrthographicCamera(
+			808  / -2, 
+			808  /  2,
+			448 /  2,
+			448 / -2);	
 
 		// Moves the camera far away, so the most object with a 
 		// positive z coordinate will be visible
