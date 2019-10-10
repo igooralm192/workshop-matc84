@@ -28,9 +28,8 @@ const styles = theme => ({
 });
 
 function Header(props) {
-    console.log(window.history)
 	const { classes } = props;
-
+    
     return (
         <AppBar
             position="relative"
@@ -45,7 +44,7 @@ function Header(props) {
 				>
 					<MenuIcon/>
 				</IconButton>
-                <Link to="/" style={{width: '100%'}}>
+                <Link to="/" style={{width: '100%'}} onClick={() => dispatchEvent(new CustomEvent('changeTheme', {detail: {pathTheme: '/'}}))}>
                     <Typography className={classes.headerTitle} variant="h6">
                         Workshop <b>XML + JSON</b>
                     </Typography>

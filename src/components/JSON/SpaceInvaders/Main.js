@@ -133,7 +133,8 @@ class Main extends React.Component {
             step: 0,
             editorValue: '',
             resultProperties: {},
-            errors: []
+            errors: [],
+            resultError: false
         }
 
         this.schema = new Schema(Validator);
@@ -143,7 +144,7 @@ class Main extends React.Component {
         let properties = {};
 
         try { var editorProperties = JSON.parse(value); } catch(e) { 
-            this.setState({editorValue: value})
+            this.setState({editorValue: value, resultError: true})
             return;
         }
 
@@ -165,11 +166,11 @@ class Main extends React.Component {
                 errors = [{ row: 0, column: 0, type: 'error', text: validation[0].message}]
             }
 
-            this.setState({editorValue: value, errors});
+            this.setState({editorValue: value, errors, resultError: true});
             return;
         }
 
-        this.setState({editorValue: value, resultProperties: properties, errors: []})
+        this.setState({editorValue: value, resultProperties: properties, errors: [], resultError: false})
     }
 
     handleStep(step) {
@@ -178,7 +179,7 @@ class Main extends React.Component {
     }
 
     render() {
-        const { step, editorValue, resultProperties, errors } = this.state;
+        const { step, editorValue, resultProperties, errors, resultError } = this.state;
 
         return (
             <div style={{height: '100%'}}>
@@ -194,7 +195,7 @@ class Main extends React.Component {
                             onChange={(value) => this.handleEditor(value, step)}
                         />
                     }
-                    result={<SpaceInvaders properties={resultProperties}/>}
+                    result={<SpaceInvaders properties={resultProperties} error={resultError}/>}
                     expectedResult={steps[step].expectedResult}
                     steps={steps}
                     activeStep={step}

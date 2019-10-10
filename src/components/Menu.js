@@ -62,14 +62,16 @@ const styles = () => ({
 	}
 });
 
-const xmlItems = new Array();
+const xmlItems = [];
 XMLChallenges.forEach((challenge, i) => {
 	xmlItems.push({ name: [`${i + 1}. `+ challenge.title], url: challenge.path });
 });
 
+
+
 function Menu(props) {
 	const { classes } = props;
-
+	
 	const [openXML, setOpenXML] = useState(false);
 	const [openJSON, setOpenJSON] = useState(false);
 
@@ -87,6 +89,11 @@ function Menu(props) {
 			challenges: [{name: 'Space Invaders', url: '/json/spaceinvaders',}]
 		}
 	]
+
+	const handleItem = (path) => {
+		dispatchEvent(new CustomEvent('changeTheme', {detail: {pathTheme: path}}))
+		props.closeMenu()
+	}
 
 	return (
         <Drawer
@@ -125,7 +132,7 @@ function Menu(props) {
 									{
 										item.challenges.map((challenge, j) => (
 											<Link key={i} to={challenge.url} className={classes.menuItemLink}>
-												<ListItem key={i} button onClick={() => props.closeMenu()}>
+												<ListItem key={i} button onClick={() => handleItem(challenge.url)}>
 													<ListItemText>
 														<Typography className={clsx(classes.menuItem, classes.menuItemNested)}>
 															{challenge.name}
