@@ -99,7 +99,6 @@ class SpaceInvaders extends React.Component {
     }
 
     createGame(properties) {
-        console.log(properties)
         let { background, invader, ship, game, start } = properties
         this.clearContainer();
         this.drawBackground(background, this.starfield);
@@ -107,7 +106,6 @@ class SpaceInvaders extends React.Component {
         this.drawShip(ship, this.game)
         this.configGame(game, this.game)
         this.startGame(start, this.game, this.starfield, properties)
-        //console.log(this.game)
     }
 
     clearContainer() {
@@ -130,7 +128,6 @@ class SpaceInvaders extends React.Component {
     
     drawInvaders(data, game) {
         if (data && game) {
-            console.log('eae')
             var invader = new InvaderDraw(data, game)
             invader.enter(game)
             invader.draw(game, game.gameCanvas.getContext("2d"))
@@ -167,6 +164,7 @@ class SpaceInvaders extends React.Component {
             })
             starfield.start();
             game.setConfig({
+                invadersColor: invader.color?invader.color:'#00BB00',
                 invadersAmount: invader.amount?invader.amount:20,
                 invaderInitialVelocity: invader.speed?invader.speed:25,
                 invadersLives: invader.lives?invader.lives:1,
@@ -178,7 +176,9 @@ class SpaceInvaders extends React.Component {
 
                 shipWidth: ship.width?ship.width:20,
                 shipHeight: ship.height?ship.height:20,
+                shipColor: ship.color?ship.color:'#999999',
                 shipSpeed: ship.speed?ship.speed:120,
+                rocketColor: ship.rocketColor?ship.rocketColor:'#ff0000',
                 rocketVelocity: ship.rocketVelocity?ship.rocketVelocity:120,
                 rocketMaxFireRate: ship.shootRate?ship.shootRate:2,
 
@@ -186,7 +186,7 @@ class SpaceInvaders extends React.Component {
                 levelDifficultyMultiplier: gameConfig.difficultyMultiplier?gameConfig.difficultyMultiplier:0.2,
                 pointsPerInvader: gameConfig.pointsPerInvader?gameConfig.pointsPerInvader:50
             })
-            console.log(game)
+
             game.start();
             
         }

@@ -17,6 +17,9 @@ export default ({
         }
     },
     invader: {
+        color: {
+            type: String,
+        },
         amount: {
             type: Number,
             size: {min: 1, max: 50},
@@ -51,6 +54,9 @@ export default ({
         }
     },
     ship: {
+        color: {
+            type: String,
+        },
         width: {
             type: Number,
             size: {min: 5, max: 50},
@@ -72,6 +78,9 @@ export default ({
         shootRate: {
             type: Number,
             size: {min: 0.1, max: 5},
+        },
+        rocketColor: {
+            type: String,
         },
         rocketVelocity: {
             type: Number,
