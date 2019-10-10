@@ -14,7 +14,7 @@ const challenge1 = {
         {
             title: challengeTitle, subtitle: 'Tudo tem um início', 
             description: `O primeiro passo é criar tag raiz do editor, dentro dela estarão todas as tags que comporão
-                as suas imagens. O ArsyXML requer uma tag raiz chamada data. Para começar, adicione a tag <data> 
+                as suas imagens. O ArtsyXML requer uma tag raiz chamada data. Para começar, adicione a tag <data> 
                 ao editor. Não esqueça de fechá-la com o seu par </data>! Clique em próxima quando estiver pronto para continuar.`,
             expectedResult: `
                 <data>
@@ -49,7 +49,7 @@ const challenge1 = {
             description: `É possível controlar a posição das formas dentro do quadro!
                 Os atributos x e y definem a posição do centro da sua figura.\n Pense 
                 no quadro como o plano cartesiano, com a origem (0, 0, 0) posicionada no centro.
-                Para posicionar o seu retângulo no canto direito, adicione os atributos x: 350, y: -170. A tag rect.`,
+                Para posicionar o seu retângulo no canto direito, adicione os atributos x: 350, y: -170 à tag rect.`,
             expectedResult: `
                 <data>
                     <rect x="350" y="-170" w="100" h="100" color="yellow" />

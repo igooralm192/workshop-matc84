@@ -36,8 +36,8 @@ const challenge2 = {
             description: `Nesse etapa apresentaremos o conceito de "transformations". 
             Com ela é possível fazer manipulações especiais na forma. Para isso, é preciso criar
             uma tag transformations dentro da forma que se deseja manipular. Crie uma tag
-            <transformation> sem atributos, filha do retângulo amarelo criado na etapa anterior.
-            A estrutura deve ficar semelhante a \n<rect>\n\t<transformations>\n\t</transformations>\n</rect>`,
+            <transformations> sem atributos, filha do retângulo amarelo criado na etapa anterior.
+            A estrutura deve ficar semelhante à \n<rect>\n\t<transformations>\n\t</transformations>\n</rect>`,
             expectedResult: `
                 <data>
                     <rect w="550" h="370" color="green" />
@@ -57,7 +57,7 @@ const challenge2 = {
                 dentro de uma forma. É preciso informar para tilt o ângulo da rotação (em graus).
                 Para rotacionar estáticamente o retângulo amarelo, adicione uma tag tilt 
                 como filha da tag transformations criada na etapa anterior. Dê a ela um atributo angle com valor
-                45. Isso fará o retângulo amarelo rotacionar 45 graus.`,
+                45. Isso fará o retângulo amarelo rotacionar em 45 graus.`,
             expectedResult: `
                 <data>
                     <rect w="550" h="370" color="green" />
@@ -116,9 +116,9 @@ const challenge2 = {
             title: challengeTitle,
             subtitle: "Ordem dos objetos",
             description: `Para definir a ordem dos objetos, pense que as figuras estão em um 
-            espaço tridimensional. Objetos que estão a frente sobrepõe os objetos que estão atrás.
+            espaço tridimensional. Objetos que estão a frente sobrepõem os objetos que estão atrás.
             Mas nem tudo está perdido! É possível definir a profundidade dos objetos através do
-            do atributo z! Pense que quanto maior o z, mas próximo de você estão os objetos. O valor
+            do atributo z! Pense que quanto maior o z, mais próximo de você estão os objetos. O valor
             padrão é 0. Para trazer sua faixa branca para frente das outras formas, adicione um atributo
             z="1". Qualquer valor maior que o padrão funciona.`,
             expectedResult: `
