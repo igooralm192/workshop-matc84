@@ -18,8 +18,8 @@ const challenge3 = {
             description: ` É possível sobrepor formas para criar efeitos interessantes. 
                 Para experimentar, utilizando o que aprendeu na etapa anterior,
                 crie dois círculos com os seguintes atributos: 
-                Círculo1 = x: -30 r:150 color: red e
-                Círculo2 = x: 30 r:150 color: red `,
+                Círculo1 = x: -40 r:150 color: red e
+                Círculo2 = x: 40 r:150 color: red `,
             initProperties: {}
         },
         {
