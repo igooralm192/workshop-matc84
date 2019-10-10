@@ -50,11 +50,14 @@ class MainThreeResult extends React.Component{
 	
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		//super(prevProps, prevState, snapshot);
+		this.updateScene();	
+	}
+
+	updateScene(){
 		let {expectedResult} = this.props;
 		let sceneDescription = xmlparser.parseXML(expectedResult);
 		let shapes = xmlparser.getSceneElements(sceneDescription.data.data);
 		resultSceneManager.BuildScene(shapes);
-			
 	}
 
     animate() {
@@ -71,7 +74,8 @@ class MainThreeResult extends React.Component{
 	}
 
     componentDidMount(){
-        this.init();
+		this.init();
+		this.updateScene();
     }
 
 	componentWillUnmount() {
