@@ -19,9 +19,9 @@ const steps = [
         subtitle: 'Introdução',
         description: (
             <div>
-                Bem vindo(a) ao desafio JSON do workshop da disciplina MATC84! 
+                Bem vindo(a) ao desafio JSON do Workshop da disciplina MATC84! 
                 Aqui, iremos aprender o básico da linguagem através da modificação de certas propriedades do jogo Space Invaders. 
-                <p>Atente-se às instruções e apenas avance quando completá-las! Por hora, pode seguir adiante!</p> 
+                <p>Para começarmos, insira um <b>objeto vazio</b> na raiz do código e siga para a próxima etapa.</p> 
             </div>
         ),
         expectedResult: (<div></div>)
@@ -56,6 +56,7 @@ const steps = [
                 Agora, preparemo-nos para encontrar nossos inimigos! 
                 Assim, insira na raiz do código JSON um objeto chamado <pre className="code-highlighter">invader</pre> com os seguintes atributos:
                 <ul>
+                    <li><pre className="code-highlighter">color</pre> - (string) para definir a cor dos invaders - default: <code>"#00BB00"</code></li>
                     <li><pre className="code-highlighter">amount</pre> - (int) para a quantidade dos invaders, no intervalo <code>[1,50]</code> - default: <code>20</code></li>
                     <li><pre className="code-highlighter">lives</pre> - (int) para definir a vida dos inimigos, no intervalo <code>[1,30]</code> - default: <code>1</code></li>
                     <li><pre className="code-highlighter">speed</pre> - (int) para configurar a velocidade, no intervalo <code>[20,200]</code> - default: <code>25</code></li>
@@ -82,7 +83,9 @@ const steps = [
                 <ul>
                     <li><pre className="code-highlighter">width</pre> - (int) para a largura da nave, no intervalo <code>[5,50]</code> - default: <code>20</code></li>
                     <li><pre className="code-highlighter">height</pre> - (int) para a altura da nave, no intervalo <code>[5,50]</code> - default: <code>20</code></li>
+                    <li><pre className="code-highlighter">color</pre> - (string) para definir a cor da nave - default: <code>"#999999"</code></li>
                     <li><pre className="code-highlighter">speed</pre> - (int) para configurar a velocidade da nave, no intervalo <code>[20,300]</code> - default: <code>120</code></li>
+                    <li><pre className="code-highlighter">rocketColor</pre> - (string) para definir a cor dos foguetes da nave - default: <code>"#FF0000"</code></li>
                     <li><pre className="code-highlighter">rocketVelocity</pre> - (int) para definir a velocidade do tiro, no intervalo <code>[10,300]</code> - default: <code>120</code></li>
                     <li><pre className="code-highlighter">shootRate</pre> - (float) para a taxa de tiros, no intervalo <code>[0.1,5]</code> - default: <code>2</code></li>
                 </ul>

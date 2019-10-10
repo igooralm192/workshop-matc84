@@ -58,7 +58,7 @@ function Game(properties) {
         invadersLives: 1,
         shipWidth: 20,
         shipHeight: 20,
-        rocketWidth: 1,
+        rocketWidth: 2,
         rocketHeight: 4,
     };
 
@@ -348,10 +348,11 @@ function ShipDraw(properties) {
 }
 
 ShipDraw.prototype.enter = function(game) {
-    
     game.config.shipWidth = this.properties.width;
     game.config.shipHeight = this.properties.height;
+    game.config.shipColor = this.properties.color;
     game.config.shipSpeed = this.properties.speed;
+    game.config.rocketColor = this.properties.rocketColor;
     game.config.rocketVelocity = this.properties.rocketVelocity
     game.config.rocketMaxFireRate = this.properties.shootRate;
     
@@ -361,7 +362,10 @@ ShipDraw.prototype.enter = function(game) {
 ShipDraw.prototype.draw = function(game, ctx) {
     //if (!this.ship.width || !this.ship.height) return;
 
-    ctx.fillStyle = '#999999';
+    ctx.fillStyle = game.config.rocketColor;
+    ctx.fillRect(this.ship.x, this.ship.y-4*(this.ship.height / 2), game.config.rocketWidth+1, game.config.rocketHeight+1);
+
+    ctx.fillStyle = this.properties.color;
     ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
 }
 
@@ -372,6 +376,7 @@ function InvaderDraw(properties) {
 }
 
 InvaderDraw.prototype.enter = function(game) {
+    game.config.invadersColor = this.properties.color
     game.config.invadersAmount = this.properties.amount
     game.config.invaderInitialVelocity = this.properties.speed
     game.config.invadersLives = this.properties.lives
@@ -401,7 +406,7 @@ InvaderDraw.prototype.enter = function(game) {
 
 InvaderDraw.prototype.draw = function(game, ctx) {
     //  Draw invaders.
-    ctx.fillStyle = '#00BB00';
+    ctx.fillStyle = this.properties.color;
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x - invader.width/2, invader.y - invader.height/2, invader.width, invader.height);
@@ -700,11 +705,11 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     ctx.clearRect(0, 0, game.width, game.height);
     
     //  Draw ship.
-    ctx.fillStyle = '#999999';
+    ctx.fillStyle = game.config.shipColor;
     ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
 
     //  Draw invaders.
-    ctx.fillStyle = '#00BB00';
+    ctx.fillStyle = game.config.invadersColor;
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x, invader.y, invader.width, invader.height);
@@ -718,7 +723,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     }
 
     //  Draw rockets.
-    ctx.fillStyle = '#ff0000';
+    ctx.fillStyle = game.config.rocketColor;
     for(var i=0; i<this.rockets.length; i++) {
         var rocket = this.rockets[i];
         ctx.fillRect(rocket.x, rocket.y - 2, game.config.rocketWidth, game.config.rocketHeight);
